@@ -1,14 +1,14 @@
-<?php require("src/profile.php"); ?>
+<?php require "src/profile.php"; ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../includes/favicon.php";?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require "../includes/favicon.php";?>
+    <?php require '../includes/all-meta.php'; ?>
 
         <title>
-            <?= getUserPseudo($userInfo['id']) ?>
+            <?php echo getUserPseudo($userInfo['id']) ?>
         </title>
 
         <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
@@ -16,8 +16,8 @@
         <link href="/assets/css/ng.css" rel="stylesheet" type="text/css" >
 </head>
 <body>
-    <?php include "../includes/profil/menu.php"; ?>
-    <?php include "../includes/flash.php";?>
+    <?php require "../includes/profil/menu.php"; ?>
+    <?php require "../includes/flash.php";?>
     <!-- profil proprement dit -->
     <div class="twpc-div">
         <div class="twpc-bg twpc-block1" style="background-image: url('/assets/imgs/photong.jpg');"></div>
@@ -26,31 +26,31 @@
 
                     <?php if (isset($getID) and $_SESSION['id'] != $getID) { ?>
 
-                        <a href="/src/script/following.php?followingID=<?= $getID ?>"><button class="btn btn-primary btn-xs"><?= check_following_statut($_SESSION['id'], $getID); ?></button></a>
-                        <a href="/galerie?id=<?= $userInfo['id'] ?>"><button class="btn btn-primary btn-xs">Galerie</button></a>
+                        <a href="/src/script/following.php?followingID=<?php echo $getID ?>"><button class="btn btn-primary btn-xs"><?php echo check_following_statut($_SESSION['id'], $getID); ?></button></a>
+                        <a href="/galerie?id=<?php echo $userInfo['id'] ?>"><button class="btn btn-primary btn-xs">Galerie</button></a>
 
                     <?php
-                } else { ?>
+                    } else { ?>
 
                         <a href="pages/membres/users.php"><button class="btn btn-primary btn-xs">Membres</button></a>
                         <a href="pages/membres/chat.php"><button class="btn btn-primary btn-xs">Chat-G</button></a>
-                        <a href="/galerie?id=<?= $userInfo['id'] ?>"><button class="btn btn-primary btn-xs">Galerie</button></a>
+                        <a href="/galerie?id=<?php echo $userInfo['id'] ?>"><button class="btn btn-primary btn-xs">Galerie</button></a>
 
                     <?php
-                } ?>
+} ?>
 
                 </div>
 
                 <a class="twpc-avatarlink">
-                <img class="twpc-avatarimg" src="pages/membres/Avatar/90-90/<?= getUserProfil($userInfo['id']) ?>" width="90" height="90" />
+                <img class="twpc-avatarimg" src="pages/membres/Avatar/90-90/<?php echo getUserProfil($userInfo['id']) ?>" width="90" height="90" />
                 </a>
 
                 <div class="twpc-divuser">
                     <div class="twpc-divname">
-                        <?= ucfirst(getUserName($userInfo['id'])) ?>
+                        <?php echo ucfirst(getUserName($userInfo['id'])) ?>
                     </div>
                     <div class="twpc-divname">
-                        <?= getUserPseudo($userInfo['id']) ?>
+                        <?php echo getUserPseudo($userInfo['id']) ?>
                     </div>
                 </div>
 
@@ -61,15 +61,15 @@
                                 <a>
                                     <span class="twpc-statlabel twpc-block">Following</span>
                                     <span class="twpc-statvalue">
-                                    <?= KMF(Check_following_num($userInfo['id'])) ?></span>
+                                    <?php echo KMF(Check_following_num($userInfo['id'])) ?></span>
                                 </a>
                             </li>
 
                             <li class="twpc-arrangesizefit">
                                 <a>
-                                    <span class="twpc-statlabel twpc-block">Follower<?= $test = (Check_follower_num($userInfo['id']) > 1) ? "s" : ""; ?> </span>
+                                    <span class="twpc-statlabel twpc-block">Follower<?php echo $test = (Check_follower_num($userInfo['id']) > 1) ? "s" : ""; ?> </span>
                                     <span class="twpc-statvalue">
-                                    <?= KMF(Check_follower_num($userInfo['id'])) ?></span>
+                                    <?php echo KMF(Check_follower_num($userInfo['id'])) ?></span>
                                 </a>
                             </li>
 
@@ -78,9 +78,9 @@
                                     <span class="twpc-statlabel twpc-block">
                                     <?php $poste = getPicturesInfo($userInfo['id'], "nombre") + getArticleInfo($userInfo['id'], "nombre") ?>
 
-                                    Poste<?= $test = ($poste > 1) ? "s" : ""; ?> </span>
+                                    Poste<?php echo $test = ($poste > 1) ? "s" : ""; ?> </span>
                                     <span class="twpc-statvalue">
-                                    <?= KMF($poste) ?></span>
+                                    <?php echo KMF($poste) ?></span>
                                 </a>
                             </li>
                         </ul>
@@ -90,7 +90,7 @@
     </div>
 <!-- fin -->
 <section class="ng-bloc-principal container">
-<?php include '../includes/profil/verset.php'; ?>
+<?php require '../includes/profil/verset.php'; ?>
 
 <!-- statut et information -->
 <div class="col-xs-12 col-lg-3 col-sm-3  col-md-3">
@@ -109,8 +109,10 @@
                 <p>
                     <?php
 
-                        if(empty($userInfo['statut'])){echo " hey tout le monde suis sur #Ngpictures";}
-                        else{ echo text($userInfo['statut']);}
+                    if(empty($userInfo['statut'])) {echo " hey tout le monde suis sur #Ngpictures";
+                    }
+                    else{ echo text($userInfo['statut']);
+                    }
 
                     ?>
                 </p>
@@ -118,24 +120,24 @@
 
             <ul class="list-group">
                 <li class="list-group-item wow fadeInRight"><span class="glyphicon glyphicon-pencil"></span>
-                    <a href="pages/membres/recherche.php?me=<?= $userInfo['id']?>">Articles</a><span class="badge ng-badge">
-                        <?= KMF(getArticleInfo($userInfo['id'],"nombre")) ?>
+                    <a href="pages/membres/recherche.php?me=<?php echo $userInfo['id']?>">Articles</a><span class="badge ng-badge">
+                        <?php echo KMF(getArticleInfo($userInfo['id'], "nombre")) ?>
                     </span>
 
                 </li>
 
                 <li class="list-group-item wow fadeInRight">
                     <span class="glyphicon glyphicon-camera"></span>
-                        <a href="/galerie?id=<?= $userInfo['id'] ?>">photos</a><span class="badge ng-badge">
-                        <?= KMF(getPicturesInfo($userInfo['id'],"nombre")) ?>
+                        <a href="/galerie?id=<?php echo $userInfo['id'] ?>">photos</a><span class="badge ng-badge">
+                        <?php echo KMF(getPicturesInfo($userInfo['id'], "nombre")) ?>
                     </span>
                 </li>
 
-                <?php if($_SESSION['id'] == $userInfo['id']){?>
+                <?php if($_SESSION['id'] == $userInfo['id']) {?>
 
                     <li class="list-group-item">
                         <span class="glyphicon glyphicon-user"></span>
-                            <a href="pages/membres/editProfil.php?id=<?= $_SESSION['id']?>">Editer mon profil</a>
+                            <a href="pages/membres/editProfil.php?id=<?php echo $_SESSION['id']?>">Editer mon profil</a>
                         <span class="badge ng-badge"></span>
                     </li>
 
@@ -152,7 +154,7 @@
     <div class="row">
         <?php $verif=$db->query("SELECT * FROM article where posterID =".$userInfo['id']." order by date_pub desc ");
         $verif = $verif->rowcount();
-        if($verif == 0 ){?>
+        if($verif == 0 ) {?>
 
         <div class="ng-panel panel panel-default ng-panel-active">
             <div class="ng-panel panel-heading ng-margin-default">
@@ -170,85 +172,85 @@
     </div>
 </div>
 
-<?php }else{?>
+        <?php }else{?>
 
 <?php include "../includes/profil/profil-modal.php"; ?>
 
 <!-- affichage article -->
     <?php
         $news=$db->query("SELECT * FROM article where posterID =".$userInfo['id']." order by date_pub desc ");
-        while($a= $news->fetch()) {
+    while($a= $news->fetch()) {
     ?>
 
     <div class="ng-panel panel panel-default ng-panel-active">
-        <div class="ng-panel panel-heading ng-margin-default ng-padding-default">
+    <div class="ng-panel panel-heading ng-margin-default ng-padding-default">
 
-            <img src="pages/membres/Avatar/40-40/<?= getUserProfil($userInfo['id']) ?>" width="40" height="40" class="img img-circle"/>&nbsp;
+        <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($userInfo['id']) ?>" width="40" height="40" class="img img-circle"/>&nbsp;
 
-            <a class="ng-user-name" href="pages/membres/profil.php?id=<?= $userInfo['id']?>">
-                <?= getUserPseudo($userInfo['id']);?>
+        <a class="ng-user-name" href="pages/membres/profil.php?id=<?php echo $userInfo['id']?>">
+            <?php echo getUserPseudo($userInfo['id']);?>
+        </a>
+
+        <span class="pull-right ng-time">
+            <time><span class="glyphicon glyphicon-time"></span> <?php echo getRelativeTime($a['date_pub'])?></time>
+            <a data-toggle="modal" data-target=".pp">
+                <span class="glyphicon glyphicon-option-vertical"></span>
             </a>
+        </span>
 
-            <span class="pull-right ng-time">
-                <time><span class="glyphicon glyphicon-time"></span> <?= getRelativeTime($a['date_pub'])?></time>
-                <a data-toggle="modal" data-target=".pp">
-                    <span class="glyphicon glyphicon-option-vertical"></span>
+    </div>
+
+    <ul class="list-group">
+        <li class="list-group-item ng-panel-img">
+            <div class="container-fluide">
+                <a href="pages/articlepages/article.php?id=<?php echo $a['id']?>"/>
+                    <center>
+                    <img src="pages/article/miniature/640-640/<?php echo getPostThumb($a["id"])?>" class="img-responsive" >
+                    </center>
                 </a>
-            </span>
+            </div>
+        </li>
+    </ul>
 
-        </div>
+    <div class="panel-body">
+        <h4><strong><?php echo $a['titre'] ?></strong></h4>
+        <p><?php echo nl2br(user_mention_verif(truncate($a['contenu']))); ?></p>
+    </div>
 
-        <ul class="list-group">
-            <li class="list-group-item ng-panel-img">
-                <div class="container-fluide">
-                    <a href="pages/articlepages/article.php?id=<?=$a['id']?>"/>
-                        <center>
-                        <img src="pages/article/miniature/640-640/<?= getPostThumb($a["id"])?>" class="img-responsive" >
-                        </center>
-                    </a>
-                </div>
-            </li>
-        </ul>
-
-        <div class="panel-body">
-            <h4><strong><?= $a['titre'] ?></strong></h4>
-            <p><?php echo nl2br(user_mention_verif(truncate($a['contenu']))); ?></p>
-        </div>
-
-        <?php if(($_SESSION['id']) != ($userInfo['id'])){?>
+    <?php if(($_SESSION['id']) != ($userInfo['id'])) {?>
 
             <li class="list-group-item ng-margin-default">
 
-                <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?= $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                <?= check_like_statut($a['id'],$_SESSION['id']) ?> <?= KMF(getArticleInfo($a['id'],"like")) ?>
+                <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?php echo $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                <?php echo check_like_statut($a['id'], $_SESSION['id']) ?> <?php echo KMF(getArticleInfo($a['id'], "like")) ?>
 
             </li>
 
-        <?php }else{?>
+    <?php }else{?>
 
             <li class="list-group-item ng-margin-default">
-                <div class="collapse" id="art-<?=$a['id']?>">
+                <div class="collapse" id="art-<?php echo $a['id']?>">
                     <div class="well ng-well">
-                        Voulez-vous vraiment supprimer " <b style="color:#000;"><?= $a['titre']?></b> " ?
+                        Voulez-vous vraiment supprimer " <b style="color:#000;"><?php echo $a['titre']?></b> " ?
                     <br>
-                    <a type="button" href="/src/script/delete.php?id=<?=$a['id']?>" class="btn btn-default btn-xs"  role="button">Oui</a>
+                    <a type="button" href="/src/script/delete.php?id=<?php echo $a['id']?>" class="btn btn-default btn-xs"  role="button">Oui</a>
 
-                    <a type="button" data-toggle="collapse" data-target="#art-<?=$a['id']?>" class="btn btn-default btn-xs"  role="button">Non</a>
+                    <a type="button" data-toggle="collapse" data-target="#art-<?php echo $a['id']?>" class="btn btn-default btn-xs"  role="button">Non</a>
                     </div>
                 </div>
 
-                <a class="btn  btn-primary btn-xs ng-btn" data-toggle="collapse" data-target="#art-<?=$a['id']?>" aria-expanded="false" aria-controls="delete-art"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                <a class="btn  btn-primary btn-xs ng-btn" data-toggle="collapse" data-target="#art-<?php echo $a['id']?>" aria-expanded="false" aria-controls="delete-art"><span class="glyphicon glyphicon-remove-sign"></span></a>
 
-                <a class="btn btn-primary btn-xs ng-btn"  href="/envoie-photo?edit=<?=$a['id']?>"><span class="glyphicon glyphicon-edit"></span></a>
+                <a class="btn btn-primary btn-xs ng-btn"  href="/envoie-photo?edit=<?php echo $a['id']?>"><span class="glyphicon glyphicon-edit"></span></a>
 
-                <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?= $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                <?= check_like_statut($a['id'],$_SESSION['id']) ?> <?= KMF(getArticleInfo($a['id'],"like")) ?>
+                <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?php echo $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                <?php echo check_like_statut($a['id'], $_SESSION['id']) ?> <?php echo KMF(getArticleInfo($a['id'], "like")) ?>
 
             </li>
 
-        <?php }?>
+    <?php }?>
 </div><!-- tres important -->
-<?php } ?>
+    <?php } ?>
 
 <!-- / affichage articles-->
 
@@ -257,7 +259,7 @@
 </div>
 </div>
 
-<?php } // fin du else ?>
+        <?php } // fin du else ?>
 
 
 <!-- service et ngpictures -->
@@ -275,18 +277,18 @@
                         <a class="btn btn-primary btn-xs ng-btn" href="/actualite" >
                             <span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>
 
-                        <a class="btn btn-primary btn-xs ng-btn" href="pages/membres/editProfil.php?id=<?= $_SESSION['id']?>" >
+                        <a class="btn btn-primary btn-xs ng-btn" href="pages/membres/editProfil.php?id=<?php echo $_SESSION['id']?>" >
                             <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
 
                         <a class="btn btn-primary btn-xs ng-btn" href="pages/membres/chat.php" >
                             <span class="glyphicon glyphicon-comment" aria-hidden="true"></span></a>
 
-                        <a class="btn btn-primary btn-xs ng-btn" href="/galerie?id=<?= $_SESSION['id']?>">
+                        <a class="btn btn-primary btn-xs ng-btn" href="/galerie?id=<?php echo $_SESSION['id']?>">
                             <span class="glyphicon glyphicon-picture" aria-hidden="true"></span></a>
                     </nav>
                 <!-- /NAV RAPIDE -->
             </div>
-            <?php include '../includes/last-ngpictures.php'; ?>
+            <?php require '../includes/last-ngpictures.php'; ?>
         </div>
     </div>
 <!-- /service et ngpictures -->
@@ -294,7 +296,7 @@
 <div class="ng-espace-fantom"></div>
 </section>
 
-<?php include "../includes/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
 
 
 <!-- script -->

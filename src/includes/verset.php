@@ -1,7 +1,7 @@
 <!-- verset biblique du jour -->
 <?php
 
-    $id = mt_rand(1,500);
+    $id = mt_rand(1, 500);
     $verset = $db->query('SELECT * from verset');
     $nb = $verset->rowcount();
     $vbj = $db->prepare("SELECT * from verset  where id = ? ");
@@ -17,10 +17,11 @@
             </div>
 
             <div class="modal-body">
-                <?php if($vbj->rowcount() == 0){ echo "aucun verset... <br><br> <b>Actualisez la page</b>"; }?>
-                <p><?= $V['contenu'] ?></p>
+                <?php if($vbj->rowcount() == 0) { echo "aucun verset... <br><br> <b>Actualisez la page</b>"; 
+                }?>
+                <p><?php echo $V['contenu'] ?></p>
                 <br><br>
-                <b><?= $V['ref'] ?></b>
+                <b><?php echo $V['ref'] ?></b>
             </div>
 
             <div class="modal-footer">
@@ -40,12 +41,12 @@
                 </a>
             </li>
 
-            <?php if(isset($_SESSION['id']) and !empty($_SESSION['id'])){ ?>
+            <?php if(isset($_SESSION['id']) and !empty($_SESSION['id'])) { ?>
 
             <li role="presentation">
                 <a  data-toggle="modal" data-target=".bs-example-modal-sm">
                     <span class="glyphicon glyphicon-record" aria-hidden="true"></span>
-                    <?= check_user_online($_SESSION['id']) ?>
+                    <?php echo check_user_online($_SESSION['id']) ?>
                 </a>
             </li>
 

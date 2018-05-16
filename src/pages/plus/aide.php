@@ -2,7 +2,7 @@
 session_start();
 require "../src/helper/functions.php";
 $db = base_connexion("ngbdd");
-include_once("../src/script/cookie.php");
+require_once "../src/script/cookie.php";
 
 ?>
 <!doctype html>
@@ -11,8 +11,8 @@ include_once("../src/script/cookie.php");
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include '../includes/favicon.php';?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require '../includes/favicon.php';?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>Idees</title>
 
   <title>Aide</title>
@@ -26,8 +26,8 @@ include_once("../src/script/cookie.php");
 <body>
 <section class="ng-bloc-principal">
 
-<?php include "../includespages/plus/menu.php"; ?>
-<?php include "../includes/flash.php"; ?>
+<?php require "../includespages/plus/menu.php"; ?>
+<?php require "../includes/flash.php"; ?>
 
 <div class="jumbotron ng-margin-default">
     <div class="container">
@@ -41,7 +41,7 @@ include_once("../src/script/cookie.php");
     </div>
 </div>
 
-<?php include '../includes/verset.php'; ?>
+<?php require '../includes/verset.php'; ?>
 
 <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-8 col-sm-offset-2 col-xs-12">
 <div class="row">
@@ -229,7 +229,7 @@ ex: @je_nexiste_pas
 
 <div class="ng-espace-fantom"></div>
 </section>
-<?php include "../includes/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
 
 <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

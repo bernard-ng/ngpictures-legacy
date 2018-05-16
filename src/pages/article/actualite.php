@@ -2,12 +2,11 @@
 session_start();
 require "../src/helper/functions.php";
 $db = base_connexion("ngbdd");
-include_once("../src/script/cookie.php");
-include '../src/script/online.php';
+require_once "../src/script/cookie.php";
+require '../src/script/online.php';
 
-if(isset($_SESSION['id']) and !empty($_SESSION['id']))
-{
-/*
+if(isset($_SESSION['id']) and !empty($_SESSION['id'])) {
+    /*
 
     pour afficher les news seulement pour mes amis mais j'y arrive pas...
 
@@ -26,20 +25,21 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
     print_r($user_list);
 
 
-*/
+    */
 }else{
 
     header("location:pages/membres/login.php");
     $_SESSION['msg'] = "vous devez vous connecter!";
-    $_SESSION['type'] = "alert alert-danger"; }
+    $_SESSION['type'] = "alert alert-danger"; 
+}
 ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../includes/favicon.php";?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require "../includes/favicon.php";?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>Actualités</title>
 
     <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
@@ -48,8 +48,8 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
 
 </head>
 <body>
-<?php include "../includespages/article/menu.php"; ?>
-<?php include "../includes/flash.php"; ?>
+<?php require "../includespages/article/menu.php"; ?>
+<?php require "../includes/flash.php"; ?>
 
 
 <div class="jumbotron ng-margin-default">
@@ -57,14 +57,14 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
         <div class="container">
             <div class="media-body" >
                 <h2 class="media-heading" style="color:#428bca;"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Actualités</h2>
-                Salut <b><?= getUserPseudo($_SESSION['id']) ?></b>, ici tu rétrouveras les articles de tes amis, tu rétrouveras aussi leur photos, fait une recherche pour plus de résultats...
+                Salut <b><?php echo getUserPseudo($_SESSION['id']) ?></b>, ici tu rétrouveras les articles de tes amis, tu rétrouveras aussi leur photos, fait une recherche pour plus de résultats...
             </div>
         </div>
     </div>
 </div>
 <section class="ng-bloc-principal container">
 <!-- verset -->
-    <?php include '../includes/verset.php'; ?>
+    <?php require '../includes/verset.php'; ?>
 <!-- verset -->
 <!-- bar de recherche et carousel de contact -->
     <div class="col-lg-3 col-md-3 col-xs-12 col-sm-3">
@@ -78,7 +78,7 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
                             </button>
                         </span>
                 </form>
-                <?php include '../includes/contact-carousel.php'; ?>
+                <?php require '../includes/contact-carousel.php'; ?>
             </div>
         </div>
     </div>
@@ -91,20 +91,20 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
     <?php
         $verif=$db->query("SELECT * from article order by date_pub desc ");
         $verif = $verif->rowcount();
-        if($verif == 0 ){
+    if($verif == 0 ) {
     ?>
 
     <div class="ng-panel panel panel-default ng-panel-active">
-        <div class="ng-panel panel-heading ng-margin-default">
-            <span class="glyphicon glyphicon-alert pull-right"></span>  AUCUNE PUBLICATION POUR L'INSTANT
-        </div>
-        <ul class="list-group">
-            <li class="list-group-item ng-panel-img">
-                <div class="container-fluide">
-                    <img src="pages/article/miniature/rien.jpg" class="img-responsive" width="640" height="640">
-                </div>
-            </li>
-        </ul>
+    <div class="ng-panel panel-heading ng-margin-default">
+        <span class="glyphicon glyphicon-alert pull-right"></span>  AUCUNE PUBLICATION POUR L'INSTANT
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item ng-panel-img">
+            <div class="container-fluide">
+                <img src="pages/article/miniature/rien.jpg" class="img-responsive" width="640" height="640">
+            </div>
+        </li>
+    </ul>
     </div>
 
     <?php }else{?>
@@ -112,58 +112,58 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
     <!-- resultat -->
         <?php
             $news=$db->query("SELECT * from article order by date_pub desc ");
-            while($a= $news->fetch()){
+        while($a= $news->fetch()){
         ?>
 
-            <div class="ng-panel panel panel-default ng-panel-active">
-                <div class="ng-panel panel-heading ng-margin-default ng-padding-default">
-                    <img src="pages/membres/Avatar/40-40/<?= getUserProfil($a['posterID']) ?>" width="40" height="40" class="img img-circle"/>&nbsp;
-                            <a class="ng-user-name" href="pages/membres/profil.php?id=<?= $a['posterID']?>">
-                                <?= getUserPseudo($a['posterID']);?>
-                            </a>
-                            <span class="pull-right ng-time">
-                                <time><span class="glyphicon glyphicon-time"></span> <?= getRelativeTime($a['date_pub'])?></time>
-                            </span>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item ng-panel-img">
-                        <div class="container-fluide">
-                            <a href="article.php?id=<?=$a['id']?>"/>
-                            <center>
-                                <img src="pages/article/miniature/640-640/<?= getPostThumb($a['id'])?>"  alt="" class="img-responsive" >
-                            </center>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
+        <div class="ng-panel panel panel-default ng-panel-active">
+            <div class="ng-panel panel-heading ng-margin-default ng-padding-default">
+                <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($a['posterID']) ?>" width="40" height="40" class="img img-circle"/>&nbsp;
+                        <a class="ng-user-name" href="pages/membres/profil.php?id=<?php echo $a['posterID']?>">
+                            <?php echo getUserPseudo($a['posterID']);?>
+                        </a>
+                        <span class="pull-right ng-time">
+                            <time><span class="glyphicon glyphicon-time"></span> <?php echo getRelativeTime($a['date_pub'])?></time>
+                        </span>
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item ng-panel-img">
+                    <div class="container-fluide">
+                        <a href="article.php?id=<?php echo $a['id']?>"/>
+                        <center>
+                            <img src="pages/article/miniature/640-640/<?php echo getPostThumb($a['id'])?>"  alt="" class="img-responsive" >
+                        </center>
+                        </a>
+                    </div>
+                </li>
+            </ul>
 
-                <div class="panel-body">
-                    <h4><strong><?= $a['titre'] ?></strong></h4>
-                    <p><?php echo nl2br(user_mention_verif(truncate($a['contenu']))); ?></p>
-                </div>
+            <div class="panel-body">
+                <h4><strong><?php echo $a['titre'] ?></strong></h4>
+                <p><?php echo nl2br(user_mention_verif(truncate($a['contenu']))); ?></p>
+            </div>
 
-                <?php if(($_SESSION['id']) != ($a['posterID'])){?>
-
-                    <li class="list-group-item ng-margin-default">
-                        <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?= $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                        <?= check_like_statut($a['id'],$_SESSION['id']) ?> <?= KMF(getArticleInfo($a['id'],"like")) ?>
-                    </li>
-
-                <?php }else{?>
+            <?php if(($_SESSION['id']) != ($a['posterID'])) {?>
 
                     <li class="list-group-item ng-margin-default">
+                        <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?php echo $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                        <?php echo check_like_statut($a['id'], $_SESSION['id']) ?> <?php echo KMF(getArticleInfo($a['id'], "like")) ?>
+                    </li>
 
-                        <a class="btn btn-primary btn-xs ng-btn"  href="/envoie-photo?edit=<?=$a['id']?>"><span class="glyphicon glyphicon-edit"></span></a>
+            <?php }else{?>
 
-                        <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?= $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
-                        <?= check_like_statut($a['id'],$_SESSION['id']) ?> <?= KMF(getArticleInfo($a['id'],"like")) ?>
+                    <li class="list-group-item ng-margin-default">
+
+                        <a class="btn btn-primary btn-xs ng-btn"  href="/envoie-photo?edit=<?php echo $a['id']?>"><span class="glyphicon glyphicon-edit"></span></a>
+
+                        <a class="btn btn-primary btn-xs ng-btn" href="/src/script/like.php?t=1&id=<?php echo $a['id']?>" role="button"><span class="glyphicon glyphicon-thumbs-up"></span></a>
+                        <?php echo check_like_statut($a['id'], $_SESSION['id']) ?> <?php echo KMF(getArticleInfo($a['id'], "like")) ?>
 
                     </li>
 
-                <?php }?>
-            </div><!-- / panel-default -->
+            <?php }?>
+        </div><!-- / panel-default -->
         <?php }?>
-        <?php }?>
+    <?php }?>
     <!-- fin resultat-->
 
     </div>
@@ -182,7 +182,7 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
                     <a class="btn btn-primary btn-xs ng-btn" href="/actualite" >
                         <span class="glyphicon glyphicon-globe" aria-hidden="true"></span></a>
 
-                    <a class="btn btn-primary btn-xs ng-btn" href="/profil?id=<?= $_SESSION['id']?>" >
+                    <a class="btn btn-primary btn-xs ng-btn" href="/profil?id=<?php echo $_SESSION['id']?>" >
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
 
                     <a class="btn btn-primary btn-xs ng-btn" href="/envoie-photo" >
@@ -206,9 +206,9 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
                           </div>
                           <div id="collapseOne1" class="panel-collapse collapse in" role="tabpanel" aria-labelle$dby="headingOne1">
                                 <div class="panel-body">
-                                            <?= getTodayVerset() ?>
+                                            <?php echo getTodayVerset() ?>
                                             <br><br>
-                                            <b style="color:#000"><?= getTodayVersetRef()?></b>
+                                            <b style="color:#000"><?php echo getTodayVersetRef()?></b>
                                 </div>
                           </div>
                     </div>
@@ -219,7 +219,7 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
 
 <div class="ng-espace-fantom"></div>
 </section>
-<?php include "../includes/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
 
 <!--importation des script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

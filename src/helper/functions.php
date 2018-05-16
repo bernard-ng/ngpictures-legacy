@@ -26,21 +26,21 @@ $db = $get_database_connexion('oldversion');
  * obtenir une partie du text, et ajouter des points
  * juste apres.
  *
- * @param string $text
- * @param integer $maxchars
- * @param integer $points
+ * @param  string  $text
+ * @param  integer $maxchars
+ * @param  integer $points
  * @return string
  */
 function truncate($text,$maxchars = 157, $points = 1)
 {
-        if(strlen($text)>$maxchars)
-        {
-            $text = substr($text,0,$maxchars); // on recupere le text jusqu'au max de chars
-            $position_espace = strrpos($text," "); // on recupre le dernier espace pour ne pas tronquer un mot
-            $text = substr($text, 0 , $position_espace); // on recupere le text jusqu'au dernier espace apr le max chars
-            if($points == 1){$text = $text."..." ;}
-
+    if(strlen($text)>$maxchars) {
+        $text = substr($text, 0, $maxchars); // on recupere le text jusqu'au max de chars
+        $position_espace = strrpos($text, " "); // on recupre le dernier espace pour ne pas tronquer un mot
+        $text = substr($text, 0, $position_espace); // on recupere le text jusqu'au dernier espace apr le max chars
+        if($points == 1) {$text = $text."..." ;
         }
+
+    }
         return $text;
 }
 
@@ -48,7 +48,7 @@ function truncate($text,$maxchars = 157, $points = 1)
 /**
  * fait un KM format sur les nombres cad  1000 = 1k
  *
- * @param string $nombre
+ * @param  string $nombre
  * @return string
  */
 function KMF($nombre)
@@ -77,10 +77,11 @@ function KMF($nombre)
  * formatage du text, avec un system d'htag
  * et mention des users
  *
- * @param string $text
+ * @param  string $text
  * @return string
  */
-function text($text){
+function text($text)
+{
 
     $text = nl2br(user_mention_verif(htag($text)));
     return $text;
@@ -100,9 +101,9 @@ function text($text){
 function getTodayDate()
 {
         setlocale(LC_TIME, 'fr');
-        $date = date('Y-m-d' , time());
-        $mois = substr(strftime('%d', strtotime($date)), 0,3);
-        $dtt = ucfirst(strftime('%B-%Y' , strtotime($date)));
+        $date = date('Y-m-d', time());
+        $mois = substr(strftime('%d', strtotime($date)), 0, 3);
+        $dtt = ucfirst(strftime('%B-%Y', strtotime($date)));
         $formated = "$mois $dtt";
         return $formated;
 }
@@ -112,12 +113,12 @@ function getTodayDate()
  * recupere la date d'une maniere particuliere :)
  * juste le jour disons.
  *
- * @param string $date
+ * @param  string $date
  * @return string
  */
 function getDay($date)
 {
-        setlocale(LC_TIME,'fr');
+        setlocale(LC_TIME, 'fr');
         $dtt = $date ;
         $jour =strftime('%d', strtotime($dtt));
         return $jour;
@@ -127,13 +128,14 @@ function getDay($date)
 /**
  * recupere le mois
  *
- * @param string $date
+ * @param  string $date
  * @return string
  */
-function getMonth($date){
-        setlocale(LC_TIME,'fr');
+function getMonth($date)
+{
+        setlocale(LC_TIME, 'fr');
         $dtt = $date ;
-        $mois =substr(strftime('%B', strtotime($date)), 0,3);
+        $mois =substr(strftime('%B', strtotime($date)), 0, 3);
         return $mois;
 }
 
@@ -141,12 +143,12 @@ function getMonth($date){
 /**
  * recupere une date relative par rapport a celle passer en param
  *
- * @param string $temps_recu
+ * @param  string $temps_recu
  * @return string
  */
 function getRelativeTime($temps_recu)
 {
-    setlocale(LC_TIME,'fr'); // on met en francais les mois et les jours
+    setlocale(LC_TIME, 'fr'); // on met en francais les mois et les jours
     $temps_actu = time();
     $temps_recu = strtotime($temps_recu);
     $temps = $temps_actu - $temps_recu ;  // on recupere le temp passer entr les deux dates
@@ -163,17 +165,17 @@ function getRelativeTime($temps_recu)
     }
     else if($temps > 86400 &&  $temps <= 604800 ) // si les secondes passee sont dans cett interval c'est les jours
     {
-        $calcul = intval($temps / 86400 ); // on divise sans restes les secondes par le nombre de secondes dans un jour
+        $calcul = intval($temps / 86400); // on divise sans restes les secondes par le nombre de secondes dans un jour
         $formated = "il y a $calcul"."j";
     }
     else if($temps > 604800) // au dela de 7 jour on affiche la date...
     {
         $dtt = $temps_recu ; // date recu en paremetre
-        $jour = substr(strftime('%d', $dtt), 0,3); // on recupere les 3 premiere lettres pour le mois
-        if(date("Y") == strftime("Y",$dtt)){
-            $date = ucfirst(strftime('%B' , $dtt)); // on recupere le mois et l'annee
+        $jour = substr(strftime('%d', $dtt), 0, 3); // on recupere les 3 premiere lettres pour le mois
+        if(date("Y") == strftime("Y", $dtt)) {
+            $date = ucfirst(strftime('%B', $dtt)); // on recupere le mois et l'annee
         }else{
-            $date = ucfirst(strftime('%B' , $dtt)); // on recupere le mois et l'annee
+            $date = ucfirst(strftime('%B', $dtt)); // on recupere le mois et l'annee
         }
 
         $formated = "$jour $date";
@@ -195,7 +197,7 @@ function getRelativeTime($temps_recu)
 /**
  * recupere la miniature d'un post
  *
- * @param int $article
+ * @param  int $article
  * @return string
  */
 function getPostThumb($article)
@@ -215,7 +217,7 @@ function getPostThumb($article)
 /**
  * recupere la miniature du blog
  *
- * @param int $article
+ * @param  int $article
  * @return string
  */
 function getBlogThumb($article)
@@ -272,8 +274,8 @@ function getBlogPicturesThumb($article)
 /**
  *  recupere les info d'un post
  *
- * @param int $article
- * @param string $info
+ * @param  int    $article
+ * @param  string $info
  * @return void
  */
 function getArticleInfo($article,$info)
@@ -281,7 +283,7 @@ function getArticleInfo($article,$info)
     global $db;
     $articleID = $article;
 
-    if($info == "like"){
+    if($info == "like") {
 
         $likes = $db -> prepare("select * from likes where articleID = ?");
         $likes -> execute(array($articleID));
@@ -290,7 +292,7 @@ function getArticleInfo($article,$info)
         $formated = $likes;
 
     }
-    elseif($info == "dislike"){
+    elseif($info == "dislike") {
 
         $dislikes = $db -> prepare("select * from dislikes where articleID = ?");
         $dislikes -> execute(array($articleID));
@@ -298,7 +300,7 @@ function getArticleInfo($article,$info)
 
         $formated = $dislikes;
     }
-    elseif($info == "love"){
+    elseif($info == "love") {
 
         $love= $db->prepare("select * from love where articleID = ?");
         $love->execute(array($articleID));
@@ -306,7 +308,7 @@ function getArticleInfo($article,$info)
 
         $formated = $love;
     }
-    else if($info == "commentaire"){
+    else if($info == "commentaire") {
 
         $comment= $db->prepare("select * from commentaire where articleID = ?");
         $comment ->execute(array($articleID));
@@ -314,7 +316,7 @@ function getArticleInfo($article,$info)
 
         $formated = $comment;
     }
-    else if($info == "nombre"){
+    else if($info == "nombre") {
 
         $nombre= $db->prepare("select id from article where posterID = ?");
         $nombre ->execute(array($articleID));
@@ -322,7 +324,7 @@ function getArticleInfo($article,$info)
 
         $formated = $nombre;
     }
-    else if($info == "nb_article"){
+    else if($info == "nb_article") {
 
         $nombre= $db->prepare("select id from article where id = ?");
         $nombre ->execute(array($articleID));
@@ -330,7 +332,7 @@ function getArticleInfo($article,$info)
 
         $formated = $nombre;
     }
-    else if($info == "posterID"){
+    else if($info == "posterID") {
 
         $nombre= $db->prepare("select posterID from article where id = ?");
         $nombre ->execute(array($articleID));
@@ -347,7 +349,7 @@ function getArticleInfo($article,$info)
 
 
 /**
- * @param int $article
+ * @param int    $article
  * @param string $info
  * @return void
  */
@@ -356,59 +358,59 @@ function getBlogInfo($article,$info)
     global $db;
         $articleID = $article;
 
-        if($info == "like"){
+    if($info == "like") {
 
-            $likes = $db -> prepare("select id from nglikes where articleID = ?");
-            $likes -> execute(array($articleID));
-            $likes = $likes->rowcount();
+        $likes = $db -> prepare("select id from nglikes where articleID = ?");
+        $likes -> execute(array($articleID));
+        $likes = $likes->rowcount();
 
-            $formated = $likes;
+        $formated = $likes;
 
-        }
-        elseif($info == "dislike"){
+    }
+    elseif($info == "dislike") {
 
-            $dislikes = $db -> prepare("select id from ngdislikess where articleID = ?");
-            $dislikes -> execute(array($articleID));
-            $dislikes = $dislikes ->rowcount();
+        $dislikes = $db -> prepare("select id from ngdislikess where articleID = ?");
+        $dislikes -> execute(array($articleID));
+        $dislikes = $dislikes ->rowcount();
 
-            $formated = $dislikes;
-        }
-        elseif($info == "love"){
+        $formated = $dislikes;
+    }
+    elseif($info == "love") {
 
-            $love= $db->prepare("select id from nglove where articleID = ?");
-            $love->execute(array($articleID));
-            $love= $love->rowcount();
+        $love= $db->prepare("select id from nglove where articleID = ?");
+        $love->execute(array($articleID));
+        $love= $love->rowcount();
 
-            $formated = $love;
-        }
-        else if($info == "commentaire"){
+        $formated = $love;
+    }
+    else if($info == "commentaire") {
 
-            $comment= $db->prepare("SELECT id from ngcommentaire where articleID = ?");
-            $comment ->execute(array($articleID));
-            $comment = $comment ->rowcount();
+        $comment= $db->prepare("SELECT id from ngcommentaire where articleID = ?");
+        $comment ->execute(array($articleID));
+        $comment = $comment ->rowcount();
 
-            $formated = $comment;
-        }
-        else if($info == "nombre"){
+        $formated = $comment;
+    }
+    else if($info == "nombre") {
 
-            $nombre= $db->prepare("SELECT id from ngarticle where articleID = ?");
-            $nombre ->execute(array($articleID));
-            $nombre = $nombre ->rowcount();
+        $nombre= $db->prepare("SELECT id from ngarticle where articleID = ?");
+        $nombre ->execute(array($articleID));
+        $nombre = $nombre ->rowcount();
 
-            $formated = $nombre;
+        $formated = $nombre;
 
-        }else if($info == "miniature"){
-            $min = $db->prepare("SELECT miniature from ngarticle where id = ?");
-            $min->execute(array($articleID));
-            $min = $min->fetch();
-            $min = $min['miniature'];
+    }else if($info == "miniature") {
+        $min = $db->prepare("SELECT miniature from ngarticle where id = ?");
+        $min->execute(array($articleID));
+        $min = $min->fetch();
+        $min = $min['miniature'];
 
-            $formated = $min;
-        }
-        else{
+        $formated = $min;
+    }
+    else{
 
-           return false;
-        }
+        return false;
+    }
 
         return $formated;
 }
@@ -419,7 +421,7 @@ function getPicturesInfo($photo,$info)
     global $db;
     $photoID = $photo;
 
-    if($info == "like"){
+    if($info == "like") {
 
         $likes = $db -> prepare("select * from likes where photoID = ?");
         $likes -> execute(array($photoID));
@@ -428,7 +430,7 @@ function getPicturesInfo($photo,$info)
         $formated = $likes;
 
     }
-    elseif($info == "dislike"){
+    elseif($info == "dislike") {
 
         $dislikes = $db -> prepare("select * from dislikes where photoID = ?");
         $dislikes -> execute(array($photoID));
@@ -436,7 +438,7 @@ function getPicturesInfo($photo,$info)
 
         $formated = $dislikes;
     }
-    elseif($info == "love"){
+    elseif($info == "love") {
 
         $love= $db->prepare("select * from love where photoID = ?");
         $love->execute(array($photoID));
@@ -444,7 +446,7 @@ function getPicturesInfo($photo,$info)
 
         $formated = $love;
     }
-    else if($info == "commentaire"){
+    else if($info == "commentaire") {
 
         $comment= $db->prepare("select * from commentaire where photoID = ?");
         $comment ->execute(array($photoID));
@@ -452,7 +454,7 @@ function getPicturesInfo($photo,$info)
 
         $formated = $comment;
     }
-    else if($info == "nombre"){
+    else if($info == "nombre") {
 
         $nombre= $db->prepare("select id from galerie where userID = ?");
         $nombre ->execute(array($photoID));
@@ -462,7 +464,7 @@ function getPicturesInfo($photo,$info)
 
 
     }
-    else if($info == "nb_photo"){
+    else if($info == "nb_photo") {
 
         $nombre= $db->prepare("select id from galerie where id = ?");
         $nombre ->execute(array($photoID));
@@ -472,7 +474,7 @@ function getPicturesInfo($photo,$info)
 
 
     }
-    else if($info == "posterID"){
+    else if($info == "posterID") {
 
         $nombre= $db->prepare("select userID from photo where id = ?");
         $nombre ->execute(array($photoID));
@@ -491,7 +493,7 @@ function getPicturesInfo($photo,$info)
 
 
 /**
- * @param int $photo
+ * @param int    $photo
  * @param string $info
  * @return void
  */
@@ -500,7 +502,7 @@ function getBlogPicturesInfo($photo,$info)
     global $db;
     $photoID = $photo;
 
-    if($info == "like"){
+    if($info == "like") {
 
         $likes = $db -> prepare("select id from nglikes where photoID = ?");
         $likes -> execute(array($photoID));
@@ -509,7 +511,7 @@ function getBlogPicturesInfo($photo,$info)
         $formated = $likes;
 
     }
-    elseif($info == "dislike"){
+    elseif($info == "dislike") {
 
         $dislikes = $db -> prepare("select id from ngdislikess where photoID = ?");
         $dislikes -> execute(array($photoID));
@@ -517,7 +519,7 @@ function getBlogPicturesInfo($photo,$info)
 
         $formated = $dislikes;
     }
-    elseif($info == "love"){
+    elseif($info == "love") {
 
         $love= $db->prepare("select id from nglove where photoID = ?");
         $love->execute(array($photoID));
@@ -525,7 +527,7 @@ function getBlogPicturesInfo($photo,$info)
 
         $formated = $love;
     }
-    else if($info == "commentaire"){
+    else if($info == "commentaire") {
 
         $comment= $db->prepare("SELECT id from ngcommentaire where photoID = ?");
         $comment ->execute(array($photoID));
@@ -533,7 +535,7 @@ function getBlogPicturesInfo($photo,$info)
 
         $formated = $comment;
     }
-    else if($info == "nombre"){
+    else if($info == "nombre") {
 
         $nombre= $db->prepare("SELECT id from nggalarie where photoID = ?");
         $nombre ->execute(array($photoID));
@@ -541,7 +543,7 @@ function getBlogPicturesInfo($photo,$info)
 
         $formated = $nombre;
 
-    }else if($info == "miniature"){
+    }else if($info == "miniature") {
         $min = $db->prepare("SELECT miniature from nggalarie where id = ?");
         $min->execute(array($photoID));
         $min = $min->fetch();
@@ -565,7 +567,7 @@ function getBlogPicturesInfo($photo,$info)
 /**
  * recupere le pseudo d'un user
  *
- * @param int $post_user_id
+ * @param  int $post_user_id
  * @return string
  */
 function getUserPseudo($post_user_id)
@@ -582,7 +584,7 @@ function getUserPseudo($post_user_id)
 
 
 /**
- * @param int  $post_user_id
+ * @param int $post_user_id
  * @return string
  */
 function getUserName($post_user_id)
@@ -664,6 +666,7 @@ function getUserEmail($post_user_id)
 
 /**
  * recupere un verset, celui du jour
+ *
  * @return string
  */
 function getTodayVerset()
@@ -679,6 +682,7 @@ function getTodayVerset()
 
 /**
  * recupere la reference d'un verset, celui du jour
+ *
  * @return string
  */
 function getTodayVersetRef()
@@ -694,6 +698,7 @@ function getTodayVersetRef()
 
 /**
  * recupere les nombres de versets
+ *
  * @return int
  */
 function getVersetNumber()
@@ -714,7 +719,7 @@ function getVersetNumber()
  * mention d'un user  avec @... les deux fonctions vont de paires...
  * le lien vers le profil doit etre en absolue, vu que suis sur la machine sa sera different du server, pensez a changer sa... :)
  *
- * @param string $text
+ * @param  string $text
  * @return string
  */
 function user_mention_verif($text)
@@ -722,16 +727,18 @@ function user_mention_verif($text)
     global $db;
     $text_format = strtolower($text);
     $text = $text_format;
-    $text = preg_replace_callback("#@([a-zA-Z0-9_]+)#", function ($matches) use ($db) {
-        $verif = $db->prepare("SELECT id  from membres where pseudo = ?");
-        $verif->execute(array($matches[1]));
+    $text = preg_replace_callback(
+        "#@([a-zA-Z0-9_]+)#", function ($matches) use ($db) {
+            $verif = $db->prepare("SELECT id  from membres where pseudo = ?");
+            $verif->execute(array($matches[1]));
 
-        if ($verif->rowcount() == 1) {
-            $userID = $verif->fetch()['id'];
-            return '<a style="color:#428bca; text-transform:none;" href="pages/membres/profil.php?id=' . $userID . '">' . $matches[0] . '</a>';
-        }
-        return $matches[0];
-    }, $text);
+            if ($verif->rowcount() == 1) {
+                $userID = $verif->fetch()['id'];
+                return '<a style="color:#428bca; text-transform:none;" href="pages/membres/profil.php?id=' . $userID . '">' . $matches[0] . '</a>';
+            }
+            return $matches[0];
+        }, $text
+    );
     return $text;
 }
 
@@ -739,16 +746,18 @@ function user_mention_verif($text)
 /**
  * system htag
  *
- * @param string $text
+ * @param  string $text
  * @return void
  */
 function htag($text)
 {
         $text_format = strtolower($text);
         $text = $text_format;
-        $text = preg_replace_callback("#\#([a-zA-Z0-9_]+)#", function($matches) {
-            return '<a style="color:#428bca; text-transform:none;" href=/galerie?q=' . $matches[1] . '>' . $matches[0] . '</a>';
-        }, $text);
+        $text = preg_replace_callback(
+            "#\#([a-zA-Z0-9_]+)#", function ($matches) {
+                return '<a style="color:#428bca; text-transform:none;" href=/galerie?q=' . $matches[1] . '>' . $matches[0] . '</a>';
+            }, $text
+        );
         return $text;
 }
 
@@ -766,9 +775,12 @@ function check_nglike_statut($article,$userID)
     $check = $db->prepare("SELECT * from nglikes where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -781,9 +793,12 @@ function check_like_statut($article,$userID)
     $check = $db->prepare("SELECT * from likes where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -796,9 +811,12 @@ function check_ngdislike_statut($article,$userID)
     $check = $db->prepare("SELECT * from ngdislikess where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime pas";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime pas";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -811,9 +829,12 @@ function check_dislike_statut($article,$userID)
     $check = $db->prepare("SELECT * from dislikes where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime pas";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime pas";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -826,9 +847,12 @@ function check_nglove_statut($article,$userID)
     $check = $db->prepare("SELECT * from nglove where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'adore";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'adore";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -842,9 +866,12 @@ function check_love_statut($article,$userID)
     $check = $db->prepare("SELECT * from love where articleID = ? and userID = ?");
     $check->execute(array($articleID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'adore";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'adore";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -860,9 +887,12 @@ function check_nglikep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from nglikes where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -874,9 +904,12 @@ function check_likep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from likes where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -890,9 +923,12 @@ function check_ngdislikep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from ngdislikess where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime pas";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime pas";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -906,9 +942,12 @@ function check_dislikep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from dislikes where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'aime pas";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'aime pas";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'AIME PAS"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -921,9 +960,12 @@ function check_nglovep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from nglove where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'adore";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'adore";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
@@ -937,16 +979,20 @@ function check_lovep_statut($photo,$userID)
     $check = $db->prepare("SELECT * from love where photoID = ? and userID = ?");
     $check->execute(array($photoID,$userID));
     $check = $check->rowcount();
-    if($check == 0){$text = "j'adore";}
-    elseif($check == 1){$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";}
-    else{ return false;}
+    if($check == 0) {$text = "j'adore";
+    }
+    elseif($check == 1) {$text = "<span style='color:#428bca;'>"."J'ADORE"."</span>";
+    }
+    else{ return false;
+    }
 
     return $text;
 }
 
 
 //pour voir si on suis ou pas une personne...
- function check_following_statut($followerID,$followingID){
+function check_following_statut($followerID,$followingID)
+{
     global $db;
     $follower = intval($followerID);
     $following = intval($followingID);
@@ -954,15 +1000,19 @@ function check_lovep_statut($photo,$userID)
     $check->execute(array($follower,$following));
     $check = $check->rowcount();
 
-    if($check == 0){$text = "Follow";}
-    else if($check == 1){$text = "Unfollow";}
-    else{return false;}
+    if($check == 0) {$text = "Follow";
+    }
+    else if($check == 1) {$text = "Unfollow";
+    }
+    else{return false;
+    }
 
     return $text;
- }
+}
 
 // les nombres de following...
-function Check_following_num($follow){
+function Check_following_num($follow)
+{
 
     global $db;
     $me = intval($follow);
@@ -997,8 +1047,10 @@ function Check_user_online($userID)
     $online_users = $db ->query("SELECT * from online where userID =".$userID);
     $nb_online = $online_users->rowcount();
 
-    if($nb_online == 0){ $statut = "Off";}
-    else if($nb_online == 1){ $statut = "En ligne"; }
+    if($nb_online == 0) { $statut = "Off";
+    }
+    else if($nb_online == 1) { $statut = "En ligne"; 
+    }
 
     return $statut;
 }
@@ -1013,16 +1065,16 @@ function check_online_number()
     $verif->execute(array($userID));
     $user_online = $verif->rowcount();
 
-        if($user_online == 0){
+    if($user_online == 0) {
 
-            $ins = $db ->prepare("INSERT into online(time_actu,userID) values(?,?) ");
-            $ins->execute(array($time_actu,$userID));
+        $ins = $db ->prepare("INSERT into online(time_actu,userID) values(?,?) ");
+        $ins->execute(array($time_actu,$userID));
 
-        }else {
+    }else {
 
-            $update = $db->prepare("UPDATE online set time_actu = ?  where userID = ?");
-            $update->execute(array($time_actu,$userID));
-        }
+        $update = $db->prepare("UPDATE online set time_actu = ?  where userID = ?");
+        $update->execute(array($time_actu,$userID));
+    }
 
     $online_session = time() - 15;
 

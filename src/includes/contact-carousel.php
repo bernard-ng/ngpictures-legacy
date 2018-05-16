@@ -21,10 +21,10 @@
                         </div>
 
                         <?php $photo = $db ->query("SELECT id from nggalerie order by date_pub desc limit 0,5");
-                            while($p = $photo->fetch()){?>
+                        while($p = $photo->fetch()){?>
 
                                 <div class="item">
-                                <img class="img img-responsive" src="pages/galerie/ngimages/640-640/<?= getBlogPicturesThumb($p['id']); ?>"/>
+                                <img class="img img-responsive" src="pages/galerie/ngimages/640-640/<?php echo getBlogPicturesThumb($p['id']); ?>"/>
                                 </div>
 
                         <?php }?>

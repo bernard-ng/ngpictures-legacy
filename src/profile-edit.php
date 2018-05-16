@@ -1,5 +1,5 @@
 <?php
-require(SRC . "/init.php");
+require SRC . "/init.php";
 
 if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
     $verif = $db->prepare("SELECT * FROM membres WHERE id=? ");
@@ -41,7 +41,7 @@ if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
             }
 
             if (isset($_POST['numupdate']) and !empty($_POST['numupdate']) and $_POST['numupdate'] != $user['num']) {
-				// trop compliquer pour moi..., du coup le code en bas ne marche pas comme prevu
+                // trop compliquer pour moi..., du coup le code en bas ne marche pas comme prevu
                 if (substr($_POST['numupdate'], 0, 1) == "+") {
                     $numupdate = str_replace("#^(\+)+#", "00", $_POST['numupdate']);
                     $numupdate = htmlspecialchars($numupdate);
@@ -92,7 +92,7 @@ if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
                     $Extupload = strtolower(substr(strrchr($_FILES['avatar']['name'], "."), 1));
 
                     if (in_array($Extupload, $admitExt)) {
-                        require '../src/class/imgClass.php';
+                        include '../src/class/imgClass.php';
                         $img = '$_SESSION["id"]' . '.' . '$Extupload';
                         $way = "Avatar/" . $_SESSION['id'] . "." . $Extupload;
                         $way2 = "Avatar/40-40/" . $_SESSION['id'] . "." . $Extupload;
@@ -107,10 +107,12 @@ if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
                             Img::creerMIn($way, $way4, $img, 640, 640);
 
                             $update = $db->prepare("UPDATE membres SET avatar = :avatar WHERE id= :id");
-                            $update->execute(array(
+                            $update->execute(
+                                array(
                                 "avatar" => $_SESSION['id'] . "." . $Extupload,
                                 "id" => $_SESSION['id']
-                            ));
+                                )
+                            );
 
                             $_SESSION['msg'] = "Profil mis à jour !";
                             $_SESSION['type'] = "alert-success";

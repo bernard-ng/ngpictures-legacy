@@ -20,59 +20,56 @@ by BERNARD TSHABU NGANDU
 
 */
 
-if(isset($_SERVER['HTTP_REFERER']) and !empty($_SERVER['HTTP_REFERER'])){
+if(isset($_SERVER['HTTP_REFERER']) and !empty($_SERVER['HTTP_REFERER'])) {
 
 
-	if(isset($_GET['followingID']))
-	{
+    if(isset($_GET['followingID'])) {
 
-		$getfollowedID= htmlspecialchars(intval($_GET['followingID']));
-		if(isset($_SESSION['id']) and !empty($_SESSION["id"]))
-		{
+        $getfollowedID= htmlspecialchars(intval($_GET['followingID']));
+        if(isset($_SESSION['id']) and !empty($_SESSION["id"])) {
 
-			if($getfollowedID != $_SESSION['id'])
-			{
-				$followed = $db ->prepare("SELECT * from following where followerID=? and followingID=?");
-				$followed ->execute(array($_SESSION['id'],$getfollowedID));
-				$followed = $followed->rowcount();
+            if($getfollowedID != $_SESSION['id']) {
+                $followed = $db ->prepare("SELECT * from following where followerID=? and followingID=?");
+                $followed ->execute(array($_SESSION['id'],$getfollowedID));
+                $followed = $followed->rowcount();
 
-				if($followed == 0)
-				{
-					$addFollowed= $db ->prepare("INSERT into following(followerID,followingID) value (?,?)");
-					$addFollowed->execute(array($_SESSION['id'],$getfollowedID));
+                if($followed == 0) {
+                    $addFollowed= $db ->prepare("INSERT into following(followerID,followingID) value (?,?)");
+                    $addFollowed->execute(array($_SESSION['id'],$getfollowedID));
 
-					$user= getUserPseudo($getfollowedID);
-					$_SESSION['msg'] = "vous suivez ".$user." !";
-					$_SESSION['type'] = "alert-info";
+                    $user= getUserPseudo($getfollowedID);
+                    $_SESSION['msg'] = "vous suivez ".$user." !";
+                    $_SESSION['type'] = "alert-info";
 
-				}
-				else if ($followed ==1)
-				{
-					$delFollowed = $db ->prepare("delete from following where followerID=? and followingID=? ");
-					$delFollowed ->execute(array($_SESSION["id"],$getfollowedID));
+                }
+                else if ($followed ==1) {
+                    $delFollowed = $db ->prepare("delete from following where followerID=? and followingID=? ");
+                    $delFollowed ->execute(array($_SESSION["id"],$getfollowedID));
 
-					$user= getUserPseudo($getfollowedID);
-					$_SESSION['msg'] = "vous ne suivez plus ". $user." !";
-					$_SESSION['type'] = "alert-info";
-				}
-			}
+                    $user= getUserPseudo($getfollowedID);
+                    $_SESSION['msg'] = "vous ne suivez plus ". $user." !";
+                    $_SESSION['type'] = "alert-info";
+                }
+            }
 
-			header('location:'.$_SERVER['HTTP_REFERER']);
+            header('location:'.$_SERVER['HTTP_REFERER']);
 
-		}else{
+        }else{
 
-			$_SESSION['msg'] = "vous devez vous connecté !";
-			$_SESSION['type'] = "alert-danger";
-			header('location:..pages/membres/login.php');
-		}
+            $_SESSION['msg'] = "vous devez vous connecté !";
+            $_SESSION['type'] = "alert-danger";
+            header('location:..pages/membres/login.php');
+        }
 
-	}else{  header('location:pages/plus/erreur/500.php') ;}
+    }else{  header('location:pages/plus/erreur/500.php');
+    }
 
-}else{  header('location:pages/plus/erreur/500.php') ;}
+}else{  header('location:pages/plus/erreur/500.php');
+}
 
 
 
 
 
 
- ?>
+    ?>

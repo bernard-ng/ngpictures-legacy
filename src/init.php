@@ -25,6 +25,6 @@ $db = $get_database_connexion('oldversion');
 
 
 //chargement des script important
-require(SRC.'/helper/functions.php');
-include_once(SRC.'/script/cookie.php');
-include(SRC.'/script/online.php');
+require SRC.'/helper/functions.php';
+require_once SRC.'/script/cookie.php';
+require SRC.'/script/online.php';

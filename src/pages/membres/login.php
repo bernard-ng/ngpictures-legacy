@@ -1,8 +1,8 @@
-<?php require(SRC."/connexion.php"); ?>
+<?php require SRC."/connexion.php"; ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require(SRC."/includes/header.php"); ?>
+    <?php require SRC."/includes/header.php"; ?>
 </head>
 <body class="chatboxx">
 
@@ -13,11 +13,13 @@
 
     <div class="register-box-body ng-panel-active">
 
-        <?php if(isset($msg)){ echo "<p style='color:red;'>".$msg."</p>"; }else{ echo "<p>Connectez-vous pour démarrer votre Session</p>";}?>
+        <?php if(isset($msg)) { echo "<p style='color:red;'>".$msg."</p>"; 
+        }else{ echo "<p>Connectez-vous pour démarrer votre Session</p>";
+}?>
 
-        <?php if(isset($_SESSION['msg']))
-        { echo "<p style='color:red;'>".$_SESSION['msg']."</p>"; unset($_SESSION['msg']) ; unset($_SESSION['type']) ;
-        }else{"<p>Connectez-vous pour démarrer votre Session</p>";}
+        <?php if(isset($_SESSION['msg'])) { echo "<p style='color:red;'>".$_SESSION['msg']."</p>"; unset($_SESSION['msg']); unset($_SESSION['type']);
+        }else{"<p>Connectez-vous pour démarrer votre Session</p>";
+}
 
         ?>
 

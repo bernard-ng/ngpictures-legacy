@@ -15,7 +15,7 @@
                 <li ><a href="/index.php"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
 
                 <li><a href="/actualite"><span class="glyphicon glyphicon-globe" aria-hidden="true"></span> Actualités</a></li>
-                 <li class="active"><a href="/profil?id=<?= $_SESSION['id']?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profil</a></li>
+                 <li class="active"><a href="/profil?id=<?php echo $_SESSION['id']?>"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profil</a></li>
 
                 <li><a href="/envoie-photo"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Publications</a></li>
 

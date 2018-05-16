@@ -2,16 +2,12 @@
 session_start();
 require '../src/helper/functions.php';
 $db= base_connexion("ngbdd");
-include_once("../src/script/cookie.php");
+require_once "../src/script/cookie.php";
 
-if(isset($_SESSION['id']) and !empty($_SESSION['id']))
-{
-    if(isset($_POST['message']))
-    {
-        if(!empty($_POST['message']))
-        {
-            if(preg_match("#^(.+)$#", $_POST['message']))
-            {
+if(isset($_SESSION['id']) and !empty($_SESSION['id'])) {
+    if(isset($_POST['message'])) {
+        if(!empty($_POST['message'])) {
+            if(preg_match("#^(.+)$#", $_POST['message'])) {
 
                         $message =htmlspecialchars($_POST['message']);
                         $insert = $db->prepare('INSERT into chat(message,userID,date_pub) values (?,?,NOW()) ');
@@ -24,7 +20,8 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
 
     $_SESSION['msg'] = "vous devez vous connecter !";
     $_SESSION['type'] = "alert-danger";
-    header('location:pages/membres/login.php'); }
+    header('location:pages/membres/login.php'); 
+}
 
 ?>
 <!doctype html>
@@ -33,8 +30,8 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../includes/favicon.php";?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require "../includes/favicon.php";?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>Chat général</title>
 
     <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
@@ -49,23 +46,23 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
     <div class="menu">
 
         <div class="back">
-            <a href="profil.php?id=<?= $_SESSION['id']?>" class="ng-link-default">
+            <a href="profil.php?id=<?php echo $_SESSION['id']?>" class="ng-link-default">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <img src="pages/membres/Avatar/40-40/<?= getUserProfil($_SESSION['id'])?>" draggable="false"/>
+            <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($_SESSION['id'])?>" draggable="false"/>
         </div>
         <div class="name">Chat-Général</div>
-        <?= check_online_number(); ?>
+        <?php echo check_online_number(); ?>
 
     </div>
 </div>
 <br><br><br>
-<?php include '../includes/verset.php'; ?>
-<?php include "../includes/flash.php";?>
+<?php require '../includes/verset.php'; ?>
+<?php require "../includes/flash.php";?>
 
 <div class="col-lg-3 col-sm-3 c col-md-3  hidden-xs ">
 <div class="row">
-<?php include '../includes/last-ngpictures.php'; ?>
+<?php require '../includes/last-ngpictures.php'; ?>
 </div>
 </div>
 
@@ -77,33 +74,33 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
         <?php $all = $db->query("SELECT * from chat order by date_pub ");
         while($msg = $all->fetch()) {?>
 
-        <?php if($msg['userID'] != $_SESSION['id']){?>
+        <?php if($msg['userID'] != $_SESSION['id']) {?>
 
             <li class="other">
                 <div class="avatar">
-                    <a href="profil.php?id=<?= $msg['userID'] ?>">
-                        <img src="pages/membres/Avatar/40-40/<?= getUserProfil($msg['userID']) ?>" draggable="false"/>
+                    <a href="profil.php?id=<?php echo $msg['userID'] ?>">
+                        <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($msg['userID']) ?>" draggable="false"/>
                     </a>
                 </div>
 
                 <div class="msg text" id="regular">
-                    <p><?= text($msg['message'])?></p>
-                    <time><?= getRelativeTime($msg['date_pub'])?></time>
+                    <p><?php echo text($msg['message'])?></p>
+                    <time><?php echo getRelativeTime($msg['date_pub'])?></time>
                 </div>
             </li>
 
-            <?php }else if($msg['userID'] == $_SESSION['id']){?>
+        <?php }else if($msg['userID'] == $_SESSION['id']) {?>
 
                 <li class="self">
                     <div class="msg text" id="regular">
-                        <p><?= nl2br(user_mention_verif($msg['message']))?></p>
-                        <time><?= getRelativeTime($msg['date_pub'])?></time>
+                        <p><?php echo nl2br(user_mention_verif($msg['message']))?></p>
+                        <time><?php echo getRelativeTime($msg['date_pub'])?></time>
                     </div>
                 </li>
 
-            <?php }
+        <?php }
 
-            } ?>
+        } ?>
 
     </ol>
 </div>
@@ -123,9 +120,9 @@ if(isset($_SESSION['id']) and !empty($_SESSION['id']))
             while ($m1 =  $online->fetch()){ ?>
 
             <li>
-                <img src="membres/Avatar/90-90/<?= getUserProfil($m1['userID']) ?>" width="90" height="90">
-                <a class="users-list-name" href="pages/membres/profil.php?id=<?= $m1['userID'] ?>">
-                <?= getUserPseudo($m1['userID'])?></a>
+                <img src="membres/Avatar/90-90/<?php echo getUserProfil($m1['userID']) ?>" width="90" height="90">
+                <a class="users-list-name" href="pages/membres/profil.php?id=<?php echo $m1['userID'] ?>">
+                <?php echo getUserPseudo($m1['userID'])?></a>
             </li>
 
             <?php }?>

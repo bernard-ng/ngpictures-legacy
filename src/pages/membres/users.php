@@ -1,12 +1,12 @@
-<?php require("src/users.php"); ?>
+<?php require "src/users.php"; ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
     <head>
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="viewport" content="width=device-width" />
-        <?php include "../includes/favicon.php";?>
-        <?php include '../includes/all-meta.php'; ?>
+        <?php require "../includes/favicon.php";?>
+        <?php require '../includes/all-meta.php'; ?>
         <title>Membres</title>
 
         <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
@@ -15,8 +15,8 @@
 
     </head>
 <body>
-<?php include "../includes/profil/menu.php"; ?>
-<?php include "../includes/flash.php";?>
+<?php require "../includes/profil/menu.php"; ?>
+<?php require "../includes/flash.php";?>
 <div class="jumbotron ng-margin-default">
     <div class="media">
         <div class="container">
@@ -29,7 +29,7 @@
     <br>
 </div>
 <section class="ng-bloc-principal container">
-<?php include '../includes/verset.php'; ?>
+<?php require '../includes/verset.php'; ?>
 
 
 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-3">
@@ -46,23 +46,23 @@
         <div class="ng-panel panel panel-primary">
             <div class="ng-panel panel-heading">MOI</div>
             <div class="panel-body">
-                <?= nl2br(user_mention_verif(truncate(getUserStatut($_SESSION['id'])))); ?>
+                <?php echo nl2br(user_mention_verif(truncate(getUserStatut($_SESSION['id'])))); ?>
             </div>
 
             <ul class="list-group">
             <li class="list-group-item">
                 <span class="glyphicon glyphicon-user"></span>
                 Follower
-                <span class="ng-badge badge"><?= KMF(check_follower_num($_SESSION['id']))?></span>
+                <span class="ng-badge badge"><?php echo KMF(check_follower_num($_SESSION['id']))?></span>
                 </li>
                 <li class="list-group-item">
                 <span class="glyphicon glyphicon-user"></span>
                 Following
-                <span class="ng-badge badge"><?= KMF(check_following_num($_SESSION['id']))?></span>
+                <span class="ng-badge badge"><?php echo KMF(check_following_num($_SESSION['id']))?></span>
                 </li>
                 <li class="list-group-item">
                 <span class="glyphicon glyphicon-user"></span>
-                <a href="pages/membres/profil.php?id=<?=$_SESSION['id']?>">Mon profil</a>
+                <a href="pages/membres/profil.php?id=<?php echo $_SESSION['id']?>">Mon profil</a>
             </li>
             </ul>
         </div>
@@ -99,42 +99,43 @@
     <div class="tab-pane fade active in " role="tabpanel" id="membres" aria-labelle$dby="membres-tab">
 
     <?php $Nm = $users->rowcount(); ?>
-    <h2>Résultat<?= $t = ($Nm > 1) ? "s" : "" ;?> <span class="ng-badge badge"><?= KMF($Nm) ?></span></h2>
+    <h2>Résultat<?php echo $t = ($Nm > 1) ? "s" : "" ;?> <span class="ng-badge badge"><?php echo KMF($Nm) ?></span></h2>
 
-    <?php if($users->rowcount() > 0 ){?>
+    <?php if($users->rowcount() > 0 ) {?>
         <?php while ($m = $users->fetch()){?>
 
             <div class="col-xs-12 col-md-12 col-sm-12">
                 <div class="row">
                     <div class="ng-user-box">
-                        <img src="pages/membres/Avatar/40-40/<?= getUserProfil($m['id'])?>" width="40px" height="40px" class="img img-circle"/>
-                        <?= getUserPseudo($m['id']) ?>
+                        <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($m['id'])?>" width="40px" height="40px" class="img img-circle"/>
+                        <?php echo getUserPseudo($m['id']) ?>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class=" glyphicon glyphicon-option-vertical pull-right"></span></a>
-                            <span class="pull-right"><?= Check_user_online($m['id'])?></span>
+                            <span class="pull-right"><?php echo Check_user_online($m['id'])?></span>
 
                             <ul class="dropdown-menu panel-heading">
-                                <li><a>Follower<?= $t=(Check_follower_num($m['id']) > 1) ? "s" : ""?>:
-                                <?= KMF(Check_follower_num($m['id']))?></a></li>
+                                <li><a>Follower<?php echo $t=(Check_follower_num($m['id']) > 1) ? "s" : ""?>:
+                                <?php echo KMF(Check_follower_num($m['id']))?></a></li>
 
                                 <li role="separator" class="divider"></li>
 
-                                <li><a>Following: <?= KMF(Check_following_num($m['id']))?></a></li>
+                                <li><a>Following: <?php echo KMF(Check_following_num($m['id']))?></a></li>
                                 <li role="separator" class="divider"></li>
 
-                                    <?php $poste = getPicturesInfo($m['id'],"nombre") + getArticleInfo($m['id'],"nombre") ?>
-                                <li><a>Poste<?= $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
+                                    <?php $poste = getPicturesInfo($m['id'], "nombre") + getArticleInfo($m['id'], "nombre") ?>
+                                <li><a>Poste<?php echo $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
 
                             </ul>
                         </li>
 
-                        <?php if(empty($m['statut'])){?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php }?>
-                        <h5><?= text($m['statut'])?></h5>
+                        <?php if(empty($m['statut'])) {?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php 
+                        }?>
+                        <h5><?php echo text($m['statut'])?></h5>
 
 
-                        <?php if($_SESSION['id'] != $m['id']){?>
+                        <?php if($_SESSION['id'] != $m['id']) {?>
 
                         <?php $photo= $db->prepare("SELECT * from galerie where userID = ? order by date_pub desc limit 0,3");
                         $photo->execute(array($m['id']));?>
@@ -144,16 +145,17 @@
 
                             <?php
                             // les photo doit fit avec la taille d l'ecran c prkoi y a toute ces class la...
-                            if($photo ->rowcount() >= 3){ $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
-                            }elseif($photo ->rowcount() == 2){  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
-                            }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";}
+                            if($photo ->rowcount() >= 3) { $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
+                            }elseif($photo ->rowcount() == 2) {  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
+                            }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";
+                            }
                             ?>
 
-                            <div class="<?= $class ?>">
+                            <div class="<?php echo $class ?>">
                                 <div class="row">
                                     <div class="ng-img-default">
-                                        <a href="pages/galerie/photo.php?type=user&id=<?= $p['id']; ?>">
-                                            <img class="img img-responsive" src="pages/galerie/images/640-640/<?= $p['nom'] ?>">
+                                        <a href="pages/galerie/photo.php?type=user&id=<?php echo $p['id']; ?>">
+                                            <img class="img img-responsive" src="pages/galerie/images/640-640/<?php echo $p['nom'] ?>">
                                         </a>
                                     </div>
                                 </div>
@@ -163,16 +165,16 @@
 
                         <div class="btn-group btn-sm " role="group">
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="pages/membres/profil.php?id=<?= $m['id']; ?>">Profil</a>
+                                <a href="pages/membres/profil.php?id=<?php echo $m['id']; ?>">Profil</a>
                             </button>
 
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="/src/script/following.php?followingID=<?= $m['id'] ?>">
-                                <?= check_following_statut($_SESSION['id'],$m['id']) ?></a>
+                                <a href="/src/script/following.php?followingID=<?php echo $m['id'] ?>">
+                                <?php echo check_following_statut($_SESSION['id'], $m['id']) ?></a>
                             </button>
 
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="/galerie?id=<?= $m['id']; ?>"">Galerie</a>
+                                <a href="/galerie?id=<?php echo $m['id']; ?>"">Galerie</a>
                             </button>
                         </div>
 
@@ -181,7 +183,7 @@
                 </div>
             </div>
 
-    <?php } // fin if rowcount... ?>
+        <?php } // fin if rowcount... ?>
     <?php }else{?>
 
         <div class="ng-user-box">
@@ -190,10 +192,14 @@
                     <img class="media-object" src="pages/membres/Avatar/90-90/ng.png" width="90" height="90">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><?php if(isset($q)){ echo $q;}else{ echo "#Ngpictures ";} ?></h4>
-                    <?php if(isset($q)){echo "Aucun résultat pour ce membre";}else{ echo "Aucun membre";}?>
+                    <h4 class="media-heading"><?php if(isset($q)) { echo $q;
+                   }else{ echo "#Ngpictures ";
+} ?></h4>
+                    <?php if(isset($q)) {echo "Aucun résultat pour ce membre";
+                    }else{ echo "Aucun membre";
+}?>
                     <hr>
-                    <time><?= getTodayDate() ?></time>
+                    <time><?php echo getTodayDate() ?></time>
                 </div>
             </div>
         </div>
@@ -203,41 +209,42 @@
     </div><!-- pages/membres -->
 
     <div class="tab-pane fade " role="tabpanel" id="followers" aria-labelle$dby="followers-tab">
-    <h2>Follower<?= $t = ($fn > 1) ? "s" : "" ;?> <span class="ng-badge badge"><?= KMF($fn) ?></span></h2>
-    <?php if($follower->rowcount() > 0 ){?>
+    <h2>Follower<?php echo $t = ($fn > 1) ? "s" : "" ;?> <span class="ng-badge badge"><?php echo KMF($fn) ?></span></h2>
+    <?php if($follower->rowcount() > 0 ) {?>
 
         <?php while ($f = $follower->fetch()){?>
 
             <div class="col-xs-12 col-md-12 col-sm-12">
                 <div class="row">
                     <div class="ng-user-box">
-                        <img src="pages/membres/Avatar/40-40/<?= getUserProfil($f['followerID'])?>" width="40px" height="40px" class="img img-circle"/>
-                        <?= getUserPseudo($f['followerID']) ?>
+                        <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($f['followerID'])?>" width="40px" height="40px" class="img img-circle"/>
+                        <?php echo getUserPseudo($f['followerID']) ?>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             <span class=" glyphicon glyphicon-option-vertical pull-right"></span></a>
 
-                            <span class="pull-right"><?= Check_user_online($f['followerID'])?></span>
+                            <span class="pull-right"><?php echo Check_user_online($f['followerID'])?></span>
 
                             <ul class="dropdown-menu panel-heading">
-                                <li><a>Follower<?= $t=(Check_follower_num($f['followerID']) > 1) ? "s" : ""?>: <?= KMF(Check_follower_num($f['followerID']))?></a></li>
+                                <li><a>Follower<?php echo $t=(Check_follower_num($f['followerID']) > 1) ? "s" : ""?>: <?php echo KMF(Check_follower_num($f['followerID']))?></a></li>
 
                                 <li role="separator" class="divider"></li>
-                                <li><a>Following: <?= KMF(Check_following_num($f['followerID']))?></a></li>
+                                <li><a>Following: <?php echo KMF(Check_following_num($f['followerID']))?></a></li>
                                 <li role="separator" class="divider"></li>
 
 
-                                <?php $poste = getPicturesInfo($f['followerID'],"nombre") + getArticleInfo($f['followerID'],"nombre") ?>
-                                <li><a>Poste<?= $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
+                                <?php $poste = getPicturesInfo($f['followerID'], "nombre") + getArticleInfo($f['followerID'], "nombre") ?>
+                                <li><a>Poste<?php echo $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
                             </ul>
                         </li>
 
-                        <?php if(getUserStatut($f['followerID']) == " "){?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php }?>
+                        <?php if(getUserStatut($f['followerID']) == " ") {?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php 
+                        }?>
 
-                        <h5><?= nl2br(user_mention_verif(getUserStatut($f['followerID']))) ?></h5>
+                        <h5><?php echo nl2br(user_mention_verif(getUserStatut($f['followerID']))) ?></h5>
 
-                        <?php if($_SESSION['id'] != $f['followerID']){?>
+                        <?php if($_SESSION['id'] != $f['followerID']) {?>
 
                         <?php $photo= $db->prepare("SELECT * from galerie where userID = ? order by date_pub desc limit 0,3");
                         $photo->execute(array($f['followerID']));?>
@@ -246,16 +253,17 @@
 
                         <?php
                             // les photo doit fit avec la taille d l'ecran c prkoi y a toute ces class la...
-                            if($photo ->rowcount() >= 3){ $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
-                            }elseif($photo ->rowcount() == 2){  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
-                            }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";}
+                        if($photo ->rowcount() >= 3) { $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
+                        }elseif($photo ->rowcount() == 2) {  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
+                        }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";
+                        }
                         ?>
 
-                        <div class="<?= $class ?>">
+                        <div class="<?php echo $class ?>">
                             <div class="row">
                                 <div class="ng-img-default">
-                                    <a href="pages/galerie/photo.php?type=user&id=<?= $p['id']; ?>">
-                                        <img class="img img-responsive" src="pages/galerie/images/640-640/<?= $p['nom'] ?>" alt="...">
+                                    <a href="pages/galerie/photo.php?type=user&id=<?php echo $p['id']; ?>">
+                                        <img class="img img-responsive" src="pages/galerie/images/640-640/<?php echo $p['nom'] ?>" alt="...">
                                     </a>
                                 </div>
                             </div>
@@ -265,26 +273,26 @@
 
                         <div class="btn-group btn-sm " role="group">
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="profil.php?id=<?= $f['followerID']; ?>">Profil</a>
+                                <a href="profil.php?id=<?php echo $f['followerID']; ?>">Profil</a>
                             </button>
 
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="/src/script/following.php?followingID=<?= $f['followerID'] ?>">
-                                <?= check_following_statut($_SESSION['id'],$f['followerID']) ?></a>
+                                <a href="/src/script/following.php?followingID=<?php echo $f['followerID'] ?>">
+                                <?php echo check_following_statut($_SESSION['id'], $f['followerID']) ?></a>
                             </button>
 
                             <button type="button" class="btn btn-default btn-sm">
-                                <a href="/galerie?id=<?= $f['followerID']; ?>">Galerie</a>
+                                <a href="/galerie?id=<?php echo $f['followerID']; ?>">Galerie</a>
                             </button>
 
                         </div>
 
-                            <?php } // fin if...?>
+                        <?php } // fin if...?>
                     </div>
                 </div>
             </div>
 
-    <?php }?>
+        <?php }?>
     <?php }else{?>
 
         <div class="ng-user-box">
@@ -293,10 +301,14 @@
                 <img class="media-object" src="pages/membres/Avatar/90-90/ng.png" width="90" height="90">
             </div>
             <div class="media-body">
-                <h4 class="media-heading"><?php if(isset($q)){ echo $q;}else{ echo "#Ngpictures ";} ?></h4>
-                <?php if(isset($q)){echo "Aucun résultat pour ce membre";}else{ echo "Aucun membre";}?>
+                <h4 class="media-heading"><?php if(isset($q)) { echo $q;
+               }else{ echo "#Ngpictures ";
+} ?></h4>
+                <?php if(isset($q)) {echo "Aucun résultat pour ce membre";
+                }else{ echo "Aucun membre";
+}?>
                 <hr>
-                <time><?= getTodayDate() ?></time>
+                <time><?php echo getTodayDate() ?></time>
             </div>
         </div>
         </div>
@@ -308,44 +320,45 @@
 
     <div class="tab-pane fade " role="tabpanel" id="following" aria-labelle$dby="following-tab">
         <?php $fwn = $following->rowcount(); ?>
-        <h2>Following <span class="ng-badge badge"><?= KMF($fwn) ?></span></h2>
+        <h2>Following <span class="ng-badge badge"><?php echo KMF($fwn) ?></span></h2>
 
 
-        <?php if($following->rowcount() > 0 ){?>
+        <?php if($following->rowcount() > 0 ) {?>
             <?php while ($fw = $following->fetch()){?>
 
                 <div class="col-xs-12 col-md-12 col-sm-12">
                     <div class="row">
                         <div class="ng-user-box">
-                            <img src="pages/membres/Avatar/40-40/<?= getUserProfil($fw['followingID'])?>" width="40px" height="40px" class="img img-circle"/>
-                                <?= getUserPseudo($fw['followingID']) ?>
+                            <img src="pages/membres/Avatar/40-40/<?php echo getUserProfil($fw['followingID'])?>" width="40px" height="40px" class="img img-circle"/>
+                                <?php echo getUserPseudo($fw['followingID']) ?>
 
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 
                                 <span class=" glyphicon glyphicon-option-vertical pull-right"></span></a>
-                                <span class="pull-right"><?= Check_user_online($fw['followingID'])?></span>
+                                <span class="pull-right"><?php echo Check_user_online($fw['followingID'])?></span>
 
                                 <ul class="dropdown-menu panel-heading">
 
-                                    <li><a>Follower<?= $t=(Check_follower_num($fw['followingID']) > 1) ? "s" : ""?>: <?= KMF(Check_follower_num($fw['followingID']))?></a></li>
+                                    <li><a>Follower<?php echo $t=(Check_follower_num($fw['followingID']) > 1) ? "s" : ""?>: <?php echo KMF(Check_follower_num($fw['followingID']))?></a></li>
 
                                     <li role="separator" class="divider"></li>
-                                    <li><a>Following: <?= KMF(Check_following_num($fw['followingID']))?></a></li>
+                                    <li><a>Following: <?php echo KMF(Check_following_num($fw['followingID']))?></a></li>
                                     <li role="separator" class="divider"></li>
 
 
-                                    <?php $poste = getPicturesInfo($fw['followingID'],"nombre") + getArticleInfo($fw['followingID'],"nombre") ?>
-                                    <li><a>Poste<?= $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
+                                    <?php $poste = getPicturesInfo($fw['followingID'], "nombre") + getArticleInfo($fw['followingID'], "nombre") ?>
+                                    <li><a>Poste<?php echo $test = ($poste > 1) ? "s" : "" ;?>: <?php echo KMF($poste); ?> </a></li>
 
                                 </ul>
                             </li>
 
-                            <?php if(getUserStatut($fw['followingID']) == " "){?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php }?>
+                            <?php if(getUserStatut($fw['followingID']) == " ") {?><h5>Hey tout le monde, suis sur #Ngpictures...</h5><?php 
+                            }?>
 
-                            <h5><?= text(getUserStatut($fw['followingID'])) ?></h5>
+                            <h5><?php echo text(getUserStatut($fw['followingID'])) ?></h5>
 
-                            <?php if($_SESSION['id'] != $fw['followingID']){?>
+                            <?php if($_SESSION['id'] != $fw['followingID']) {?>
 
                             <?php $photo= $db->prepare("SELECT * from galerie where userID = ? order by date_pub desc limit 0,3");
                             $photo->execute(array($fw['followingID']));?>
@@ -355,16 +368,17 @@
                             <?php
 
                                 // les photo doit fit avec la taille d l'ecran c prkoi y a toute ces class la...
-                                if($photo ->rowcount() >= 3){ $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
-                                }elseif($photo ->rowcount() == 2){  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
-                                }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";}
+                            if($photo ->rowcount() >= 3) { $class ="col-lg-4 col-sm-4 col-md-4 col-xs-4 pull-left";
+                            }elseif($photo ->rowcount() == 2) {  $class="col-lg-6 col-sm-6 col-md-6 col-xs-6 pull-left";
+                            }else{ $class="hidden-lg hidden-xs hidden-sm hidden-md";
+                            }
                             ?>
 
-                            <div class="<?= $class ?>">
+                            <div class="<?php echo $class ?>">
                                 <div class="row">
                                     <div class="ng-img-default">
-                                        <a href="pages/galerie/photo.php?type=user&id=<?= $p['id']; ?>">
-                                            <img class="img img-responsive" src="pages/galerie/images/640-640/<?= $p['nom'] ?>" alt="...">
+                                        <a href="pages/galerie/photo.php?type=user&id=<?php echo $p['id']; ?>">
+                                            <img class="img img-responsive" src="pages/galerie/images/640-640/<?php echo $p['nom'] ?>" alt="...">
                                         </a>
                                     </div>
                                 </div>
@@ -374,16 +388,16 @@
 
                             <div class="btn-group btn-sm " role="group">
                                 <button type="button" class="btn btn-default btn-sm">
-                                    <a href="profil.php?id=<?= $fw['followingID']; ?>">Profil</a>
+                                    <a href="profil.php?id=<?php echo $fw['followingID']; ?>">Profil</a>
                                 </button>
 
                                 <button type="button" class="btn btn-default btn-sm">
-                                    <a href="/src/script/following.php?followingID=<?= $fw['followingID'] ?>">
-                                    <?= check_following_statut($_SESSION['id'],$fw['followingID']) ?></a>
+                                    <a href="/src/script/following.php?followingID=<?php echo $fw['followingID'] ?>">
+                                    <?php echo check_following_statut($_SESSION['id'], $fw['followingID']) ?></a>
                                 </button>
 
                                 <button type="button" class="btn btn-default btn-sm">
-                                    <a href="/galerie?id=<?= $fw['followingID']; ?>"">Galerie</a>
+                                    <a href="/galerie?id=<?php echo $fw['followingID']; ?>"">Galerie</a>
                                 </button>
                             </div>
 
@@ -391,8 +405,8 @@
                         </div>
                     </div>
                 </div>
-    <?php }?>
-    <?php }else{?>
+            <?php }?>
+        <?php }else{?>
 
         <div class="ng-user-box">
             <div class="media">
@@ -400,15 +414,19 @@
                     <img class="media-object" src="pages/membres/Avatar/90-90/ng.png" width="90" height="90">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><?php if(isset($q)){ echo $q;}else{ echo "#Ngpictures ";} ?></h4>
-                    <?php if(isset($q)){echo "Aucun résultat pour ce membre";}else{ echo "Aucun membre";}?>
+                    <h4 class="media-heading"><?php if(isset($q)) { echo $q;
+                   }else{ echo "#Ngpictures ";
+} ?></h4>
+                    <?php if(isset($q)) {echo "Aucun résultat pour ce membre";
+                    }else{ echo "Aucun membre";
+}?>
                     <hr>
-                    <time><?= getTodayDate() ?></time>
+                    <time><?php echo getTodayDate() ?></time>
                 </div>
             </div>
         </div>
 
-    <?php }?>
+        <?php }?>
 
     </div><!-- /following -->
 </div><!-- tab-content-->
@@ -419,7 +437,7 @@
 <div class="ng-espace-fantom"></div>
 </section>
 
-<?php include '../includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>
 
 <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

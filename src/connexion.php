@@ -1,5 +1,5 @@
 <?php
-require(SRC."/init.php");
+require SRC."/init.php";
 
 if (isset($_POST['connexion'])) {
     $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);

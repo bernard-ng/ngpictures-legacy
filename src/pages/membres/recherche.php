@@ -1,11 +1,11 @@
-<?php require('src/recherches.php'); ?>
+<?php require 'src/recherches.php'; ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../includes/favicon.php";?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require "../includes/favicon.php";?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>Recherches</title>
 
     <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
@@ -14,8 +14,8 @@
 </head>
 
 <body>
-<?php include "../includes/menu.php";?>
-<?php include "../includes/flash.php";?>
+<?php require "../includes/menu.php";?>
+<?php require "../includes/flash.php";?>
 <section class="ng-bloc-principal container">
 
 
@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<?php include '../includes/verset.php'; ?>
+<?php require '../includes/verset.php'; ?>
 
 <div class="col-xs-12 col-lg-3 col-md-3 col-sm-3">
     <div class="row">
@@ -48,32 +48,32 @@
         <div class="ng-panel panel panel-primary">
             <div class="ng-panel panel-heading"><span class="glyphicon glyphicon-user"></span>  MOI</div>
                 <div class="panel-body">
-                    <?= text(getUserStatut($_SESSION['id'])); ?>
+                    <?php echo text(getUserStatut($_SESSION['id'])); ?>
                 </div>
 
                 <ul class="list-group">
                     <li class="list-group-item">
                     <span class="glyphicon glyphicon-user"></span>
                     <a>Follower</a>
-                    <span class="ng-badge badge"><?= KMF(check_follower_num($_SESSION['id']))?></span>
+                    <span class="ng-badge badge"><?php echo KMF(check_follower_num($_SESSION['id']))?></span>
                     </li>
 
                     <li class="list-group-item">
                     <span class="glyphicon glyphicon-user"></span>
                     <a>Following</a>
-                    <span class="ng-badge badge"><?= KMF(check_following_num($_SESSION['id']))?></span>
+                    <span class="ng-badge badge"><?php echo KMF(check_following_num($_SESSION['id']))?></span>
                     </li>
 
                     <li class="list-group-item">
                     <span class="glyphicon glyphicon-user"></span>
-                    <a href="profil.php?id=<?=$_SESSION['id']?>">Mon profil</a>
+                    <a href="profil.php?id=<?php echo $_SESSION['id']?>">Mon profil</a>
                     </li>
 
                 </ul>
         </div>
 
         <div class="hidden-xs">
-            <?php include "../includes/last-ngpictures.php"; ?>
+            <?php require "../includes/last-ngpictures.php"; ?>
         </div>
     </div>
 </div>
@@ -95,24 +95,24 @@
         </ul>
 
         <br>
-        <?php if(isset($q)){?>
+        <?php if(isset($q)) {?>
         <div class="ng-user-box">
                 <div class="media">
                     <div class="media-left media-top">
                         <img class="media-object" src="pages/membres/Avatar/90-90/ng.png" width="90" height="90">
                     </div>
                     <div class="media-body">
-                        <h4 class="media-heading"><?= $q ?></h4>
+                        <h4 class="media-heading"><?php echo $q ?></h4>
                         recherches-tu un membre ?
                         <hr>
                         <span class="pull-right">
                         <button type="button" class="btn btn-default btn-sm ">
-                        <a href="pages/membres/users.php?q=<?= $q ?>">
+                        <a href="pages/membres/users.php?q=<?php echo $q ?>">
                         <span class="glyphicon glyphicon-search"></span> Rechercher
                         </a>
                         </button>
                     </span>
-                    <time><?= getTodayDate() ?></time>
+                    <time><?php echo getTodayDate() ?></time>
                 </div>
             </div>
         </div>
@@ -123,24 +123,24 @@
     <!-- boucle article -->
 
         <?php $Na =$article->rowcount();  ?>
-        <h2  id="articles">Article<?= $t = ($Na > 1) ? "s" : ""?> <span class="ng-badge badge"><?= $Na ?></span></h2>
+        <h2  id="articles">Article<?php echo $t = ($Na > 1) ? "s" : ""?> <span class="ng-badge badge"><?php echo $Na ?></span></h2>
 
-        <?php if($article->rowcount() > 0 ){?>
+        <?php if($article->rowcount() > 0 ) {?>
         <?php while ($a = $article->fetch()) { ?>
 
         <div class="ng-user-box">
             <div class="media">
                 <div class="media-left media-top">
-                    <a href="pages/articlepages/article.php?id=<?= $a['id'] ?>">
-                    <img class="media-object" src="pages/article/miniature/90-90/<?= getPostThumb($a['id']) ?>">
+                    <a href="pages/articlepages/article.php?id=<?php echo $a['id'] ?>">
+                    <img class="media-object" src="pages/article/miniature/90-90/<?php echo getPostThumb($a['id']) ?>">
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><?= truncate($a['titre'],20) ?></h4>
-                    <?= nl2br(user_mention_verif(truncate($a['contenu']))) ?>
+                    <h4 class="media-heading"><?php echo truncate($a['titre'], 20) ?></h4>
+                    <?php echo nl2br(user_mention_verif(truncate($a['contenu']))) ?>
                     <hr>
 
-                    <time><?= getRelativeTime($a['date_pub'])?></time>
+                    <time><?php echo getRelativeTime($a['date_pub'])?></time>
                     <span class="pull-right">
                         <button type="button" class="btn btn-default btn-xs ng-btn">
                         <a href="pages/articlepages/article.php?id=<?php echo $a['id']; ?>"><span class="glyphicon glyphicon-eye-open"></span></a>
@@ -159,18 +159,22 @@
         <div class="ng-user-box">
             <div class="media">
                 <div class="media-left media-top">
-                    <img class="media-object" src="pages/blog/miniature/90-90/rien.jpg" width="90" height="90">
+            <img class="media-object" src="pages/blog/miniature/90-90/rien.jpg" width="90" height="90">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><?php if(isset($q)){ echo $q;}else{ echo "#Ngpictures ";} ?></h4>
-                    <?php if(isset($q)){echo "Aucun résultat pour cet article";}else{ echo "Aucun article pour l'instant";}?>
-                    <hr>
-                    <time><?= getTodayDate() ?></time>
-                </div>
-            </div>
-        </div>
+            <h4 class="media-heading"><?php if(isset($q)) { echo $q;
+           }else{ echo "#Ngpictures ";
+} ?></h4>
+    <?php if(isset($q)) {echo "Aucun résultat pour cet article";
+    }else{ echo "Aucun article pour l'instant";
+}?>
+    <hr>
+    <time><?php echo getTodayDate() ?></time>
+</div>
+    </div>
+</div>
 
-        <?php }?>
+<?php }?>
     <!-- / boucle article -->
     </div>
 
@@ -178,23 +182,23 @@
     <!--boucle ngarticles-->
 
         <?php $Nga =$ngarticle->rowcount();  ?>
-        <h2 id="ngarticles">#Article<?= $t = ($Nga > 1) ? "s" : ""?> <span class="ng-badge badge"><?= $Nga ?></span></h2>
+        <h2 id="ngarticles">#Article<?php echo $t = ($Nga > 1) ? "s" : ""?> <span class="ng-badge badge"><?php echo $Nga ?></span></h2>
 
-        <?php if($ngarticle->rowcount() > 0 ){?>
+        <?php if($ngarticle->rowcount() > 0 ) {?>
         <?php while ($a1 = $ngarticle->fetch()) { ?>
 
         <div class="ng-user-box">
             <div class="media">
                 <div class="media-left media-top">
-                    <a href="pages/blogpages/blog.php?id=<?= $a1['id'] ?>">
-                        <img class="media-object" src="pages/blog/miniature/90-90/<?= getBlogThumb($a1['id']) ?>">
+                    <a href="pages/blogpages/blog.php?id=<?php echo $a1['id'] ?>">
+                        <img class="media-object" src="pages/blog/miniature/90-90/<?php echo getBlogThumb($a1['id']) ?>">
                     </a>
                 </div>
             <div class="media-body">
-                <h4 class="media-heading"><?= truncate($a1['titre'],20) ?></h4>
-                <?= truncate(user_mention_verif($a1['contenu']),200) ?>
+                <h4 class="media-heading"><?php echo truncate($a1['titre'], 20) ?></h4>
+                <?php echo truncate(user_mention_verif($a1['contenu']), 200) ?>
                 <hr>
-                <time><?= getRelativeTime($a1['date_pub'])?></time>
+                <time><?php echo getRelativeTime($a1['date_pub'])?></time>
                 <span class="pull-right">
                     <div class="btn-group" role="group" aria-label="...">
                         <button type="button" class="btn btn-default btn-xs ng-btn">
@@ -212,18 +216,22 @@
         <div class="ng-user-box">
             <div class="media">
                 <div class="media-left media-top">
-                    <img class="media-object" src="pages/blog/miniature/90-90/rien.jpg" width="90" height="90">
+            <img class="media-object" src="pages/blog/miniature/90-90/rien.jpg" width="90" height="90">
                 </div>
                 <div class="media-body">
-                    <h4 class="media-heading"><?php if(isset($q)){ echo $q;}else{ echo "#Ngpictures ";} ?></h4>
-                    <?php if(isset($q)){echo "Aucun résultat pour cet article";}else{ echo "Aucun article pour l'instant";}?>
-                    <hr>
-                    <time><?= getTodayDate() ?></time>
-                </div>
-            </div>
-        </div>
+            <h4 class="media-heading"><?php if(isset($q)) { echo $q;
+           }else{ echo "#Ngpictures ";
+} ?></h4>
+    <?php if(isset($q)) {echo "Aucun résultat pour cet article";
+    }else{ echo "Aucun article pour l'instant";
+}?>
+    <hr>
+    <time><?php echo getTodayDate() ?></time>
+</div>
+    </div>
+</div>
 
-        <?php }?>
+<?php }?>
         <!-- boucle ngarticle -->
 
     </div>
@@ -235,7 +243,7 @@
 <div class="ng-espace-fantom"></div>
 </section>
 
-<?php include "../includes/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
 
 <!-- script -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

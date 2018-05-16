@@ -7,7 +7,7 @@ session_start();
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../../includes/favicon.php";?>
+    <?php require "../../includes/favicon.php";?>
     <title>Erreur 404</title>
     <link rel="stylesheet" href="/assets/css/AdminLTE.min.css">
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
@@ -15,7 +15,7 @@ session_start();
 
 </head>
 <body class="chatboxx">
-    <?php include '../../includes/menu.php'; ?>
+    <?php require '../../includes/menu.php'; ?>
 
     <section class="content-header jumbotron">
       <h1>Erreur 404</h1>

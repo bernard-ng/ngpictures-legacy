@@ -1,12 +1,12 @@
-<?php require("src/inscription.php"); ?>
+<?php require "src/inscription.php"; ?>
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr">
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include "../includes/favicon.php";?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require "../includes/favicon.php";?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>Inscription</title>
 
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
@@ -23,28 +23,35 @@
 
         <div class="register-box-body ng-panel-active">
 
-            <?php if(isset($msg)){ echo "<p style='color:red;'>".$msg."</p>"; }else{ echo "<p>Créer un compte</p>";}?>
+            <?php if(isset($msg)) { echo "<p style='color:red;'>".$msg."</p>"; 
+            }else{ echo "<p>Créer un compte</p>";
+}?>
 
-            <?php if(isset($_SESSION['msg'])){
+            <?php if(isset($_SESSION['msg'])) {
 
-            echo "<p style='color:red;'>".$_SESSION['msg']."</p>"; unset($_SESSION['msg']) ; unset($_SESSION['type']) ;}
-            else{ "<p>Créer un compte</p>";} ?>
+                echo "<p style='color:red;'>".$_SESSION['msg']."</p>"; unset($_SESSION['msg']); unset($_SESSION['type']);
+            }
+else{ "<p>Créer un compte</p>";
+} ?>
 
 
             <form action="" method="POST">
 
                 <div class="form-group has-fee$dback">
-                    <input type="text" class="form-control" placeholder="Prénom et nom de famille" name="name" value="<?php if(isset($name)) { echo $name;}?>">
+                    <input type="text" class="form-control" placeholder="Prénom et nom de famille" name="name" value="<?php if(isset($name)) { echo $name;
+                   }?>">
                     <span class="glyphicon glyphicon-user form-control-fee$dback"></span>
                 </div>
 
                 <div class="form-group has-fee$dback">
-                    <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo;}?>">
+                    <input type="text" class="form-control" placeholder="Pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo;
+                   }?>">
                     <span class="glyphicon glyphicon-user form-control-fee$dback"></span>
                 </div>
 
                 <div class="form-group has-fee$dback">
-                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php if(isset($email)) { echo $email;}?>">
+                    <input type="email" class="form-control" placeholder="Email" name="email" value="<?php if(isset($email)) { echo $email;
+                   }?>">
                     <span class="glyphicon glyphicon-envelope form-control-fee$dback"></span>
                 </div>
 

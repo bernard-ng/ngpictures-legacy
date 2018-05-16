@@ -11,27 +11,27 @@ $articlesTotalreq = $db->query('select id from ngarticle ');
 $articleTotal= $articlesTotalreq ->rowcount();
 $pagestotals=ceil($articleTotal/$articlesParPage);
 
-if(isset($_GET['page']) and !empty($_GET['page']) and $_GET['page'] > 0 and $_GET['page'] <= $pagestotals)
-	{
-		$_GET['page'] = intval($_GET['page']);
-		$pagecourante = $_GET['page'];
-	}
-	else{ $pagecourante= 1; }
+if(isset($_GET['page']) and !empty($_GET['page']) and $_GET['page'] > 0 and $_GET['page'] <= $pagestotals) {
+    $_GET['page'] = intval($_GET['page']);
+    $pagecourante = $_GET['page'];
+}
+else{ $pagecourante= 1; 
+}
 
-		$depart = ($pagecourante-1)*$articlesParPage;
+        $depart = ($pagecourante-1)*$articlesParPage;
         $news=$db->query("SELECT * from ngarticle where confirme = 1 order by date_pub desc limit ".$depart.",".$articlesParPage);
 ?>
 <center>
     <nav aria-label="Page navigation  pagination-sm ">
         <ul class="pagination pagination-sm">
             <?php for($i=1;$i<=$pagestotals;$i++){
-                    if($i == $pagecourante){?>
+                if($i == $pagecourante) {?>
 
                         <li class="active"><a><?php echo $i.' '; ?></a></li>
 
                 <?php }else{ ?>
 
-                    <li><a href="index.php?page=<?= $i ?>"><?php echo $i  ; ?></a></li>
+                    <li><a href="index.php?page=<?php echo $i ?>"><?php echo $i  ; ?></a></li>
 
                 <?php }?>
             <?php }?>

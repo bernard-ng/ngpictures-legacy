@@ -1,5 +1,5 @@
 <?php
-require(SRC . "/init.php");
+require SRC . "/init.php";
 
 $editionMODE = 0;
 
@@ -41,7 +41,7 @@ if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
 
                     if (in_array($Extupload, $admitExt)) {
 
-                        require '../src/class/imgClass.php'; // on cree de miniature et on les envoi dans les different dossier
+                        include '../src/class/imgClass.php'; // on cree de miniature et on les envoi dans les different dossier
                         $img = '$lastID' . '.' . '$Extupload';
                         $name = $lastID . '.' . $Extupload;
                         $way = "miniature/" . $lastID . "." . $Extupload;
@@ -108,7 +108,7 @@ if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
         if ($_FILES['image']['size'] <= $sizeMax) {
             $Extupload = strtolower(substr(strrchr($_FILES['image']['name'], "."), 1));
             if (in_array($Extupload, $admitExt)) {
-                require '../src/class/imgClass.php';
+                include '../src/class/imgClass.php';
                 $img = "Ngpictures_" . $_FILES['image']['name'];
                 $way = "..pages/galerie/images/miniature/Ngpictures_" . $_FILES['image']['name'];
                 $way2 = "..pages/galerie/images/40-40/Ngpictures_" . $_FILES['image']['name'];

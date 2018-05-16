@@ -1,5 +1,5 @@
 <?php
-require(SRC . "/init.php");
+require SRC . "/init.php";
 
 
 

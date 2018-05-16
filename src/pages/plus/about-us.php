@@ -2,7 +2,7 @@
 session_start();
 require "../src/helper/functions.php";
 $db = base_connexion("ngbdd");
-include("../src/script/cookie.php");
+require "../src/script/cookie.php";
 ?>
 
 
@@ -13,8 +13,8 @@ include("../src/script/cookie.php");
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <?php include '../includes/favicon.php';?>
-    <?php include '../includes/all-meta.php'; ?>
+    <?php require '../includes/favicon.php';?>
+    <?php require '../includes/all-meta.php'; ?>
     <title>A propos de nous</title>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" >
     <link href="../assets/css/ng.css" rel="stylesheet" type="text/css" >
@@ -22,8 +22,8 @@ include("../src/script/cookie.php");
 </head>
 <body >
 <section class="ng-main-contain">
-<?php include "../includespages/plus/menu.php"; ?>
-<?php include "../includes/flash.php"; ?>
+<?php require "../includespages/plus/menu.php"; ?>
+<?php require "../includes/flash.php"; ?>
 
 
 <!--banner -->
@@ -287,11 +287,11 @@ include("../src/script/cookie.php");
                   <div class="col-sm-3 col-md-3 col-lg-3 col-xs-4">
                         <div class="row">
                               <div class="img img-thumbnail">
-                                    <img class="img img-responsive" src="..pages/galerie/ngimages/640-640/<?= $p['nom'] ?>" alt="...">
+                                    <img class="img img-responsive" src="..pages/galerie/ngimages/640-640/<?php echo $p['nom'] ?>" alt="...">
                               </div>
                         </div>
                   </div>
-           <?php } ?>
+            <?php } ?>
     </div>
 <!-- /nos photos -->
 
@@ -357,7 +357,7 @@ include("../src/script/cookie.php");
 
 <div class="ng-espace-fantom"></div>
 </section>
-<?php include "../includes/footer.php"; ?>
+<?php require "../includes/footer.php"; ?>
 
 
 </section>

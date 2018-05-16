@@ -1,0 +1,16 @@
+{
+    "name": "bernard-ng/ngpictures-old",
+    "description": "un simple blog et mini r\u0000saux social en procedural, mes premi\u0000res lignes de codes",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "bernard-ng",
+            "email": "ngandubernard@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3"
+    }
+}

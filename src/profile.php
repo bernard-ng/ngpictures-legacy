@@ -1,5 +1,5 @@
 <?php
-require(SRC . "/init.php");
+require SRC . "/init.php";
 
 if (isset($_SESSION['id']) and !empty($_SESSION['id'])) {
     if (isset($_GET['id']) and !empty($_GET['id'])) {
